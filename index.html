@@ -177,6 +177,58 @@
       color: #6b7280;
     }
 
+    .label-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .guideline-toggle {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #c7d2fe;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .guideline-toggle.is-open {
+      background: #4338ca;
+      color: #ffffff;
+      border-color: #4338ca;
+    }
+
+    .guideline-panel {
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid #e0e7ff;
+      background: #f9faff;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    .guideline-panel ul {
+      margin: 4px 0 8px 18px;
+      padding: 0;
+    }
+
+    .guideline-section + .guideline-section {
+      border-top: 1px dashed #e0e7ff;
+      padding-top: 6px;
+      margin-top: 6px;
+    }
+
+    .guideline-heading {
+      font-weight: 700;
+      color: #1d4ed8;
+    }
+
     .total-row {
       margin-top: 16px;
       display: flex;
@@ -418,6 +470,42 @@
       min-height: 100px;
     }
 
+    .note-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+
+    .btn-remove-note {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #fecdd3;
+      background: #fff1f2;
+      color: #be123c;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .erp-details {
+      margin-top: 8px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .erp-other-input {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #d7dce3;
+      font-size: 13px;
+      background: #ffffff;
+    }
+
     @media (max-width: 960px) {
       .item-row {
         grid-template-columns: 1fr;
@@ -525,7 +613,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">履歷完整度</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>履歷完整度</span>
+            <button type="button" class="guideline-toggle" data-target="guide-basic-resume">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-basic-resume" data-guideline="basic_resume"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–5 分</span>
@@ -545,7 +639,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">教育背景</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>教育背景</span>
+            <button type="button" class="guideline-toggle" data-target="guide-basic-edu">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-basic-edu" data-guideline="basic_edu"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–5 分</span>
@@ -565,7 +665,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">工作經歷</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>工作經歷</span>
+            <button type="button" class="guideline-toggle" data-target="guide-basic-exp">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-basic-exp" data-guideline="basic_exp"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–5 分</span>
@@ -593,7 +699,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">技術技能</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>技術技能</span>
+            <button type="button" class="guideline-toggle" data-target="guide-pro-tech">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-pro-tech" data-guideline="pro_tech"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -615,7 +727,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">問題解決能力</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>問題解決能力</span>
+            <button type="button" class="guideline-toggle" data-target="guide-pro-problem">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-pro-problem" data-guideline="pro_problem"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -637,7 +755,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">學習能力</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>學習能力</span>
+            <button type="button" class="guideline-toggle" data-target="guide-pro-learning">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-pro-learning" data-guideline="pro_learning"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -667,7 +791,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">溝通能力</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>溝通能力</span>
+            <button type="button" class="guideline-toggle" data-target="guide-soft-comm">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-soft-comm" data-guideline="soft_comm"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -689,7 +819,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">團隊合作</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>團隊合作</span>
+            <button type="button" class="guideline-toggle" data-target="guide-soft-team">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-soft-team" data-guideline="soft_team"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -711,7 +847,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">時間管理</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>時間管理</span>
+            <button type="button" class="guideline-toggle" data-target="guide-soft-time">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-soft-time" data-guideline="soft_time"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -733,7 +875,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">抗壓能力</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>抗壓能力</span>
+            <button type="button" class="guideline-toggle" data-target="guide-soft-stress">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-soft-stress" data-guideline="soft_stress"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–10 分</span>
@@ -763,7 +911,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">應對能力</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>應對能力</span>
+            <button type="button" class="guideline-toggle" data-target="guide-perf-response">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-perf-response" data-guideline="perf_response"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–5 分</span>
@@ -783,7 +937,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">職業態度</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>職業態度</span>
+            <button type="button" class="guideline-toggle" data-target="guide-perf-attitude">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-perf-attitude" data-guideline="perf_attitude"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–5 分</span>
@@ -803,7 +963,13 @@
       </div>
 
       <div class="item-row">
-        <div class="item-label">儀表儀態</div>
+        <div class="item-label">
+          <div class="label-top">
+            <span>儀表儀態</span>
+            <button type="button" class="guideline-toggle" data-target="guide-perf-manner">展開提問</button>
+          </div>
+          <div class="guideline-panel hidden" id="guide-perf-manner" data-guideline="perf_manner"></div>
+        </div>
         <div class="score-wrapper">
           <div class="score-select-row">
             <span class="score-tag">1–5 分</span>
@@ -887,6 +1053,23 @@
               <label for="ai_other" class="muted">其他常用 AI（可輸入）</label>
               <input type="text" id="ai_other" placeholder="請填寫其他工具名稱或使用情境" />
             </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>ERP 使用經驗？</label>
+          <div class="radio-row">
+            <label class="chip"><input type="radio" name="erp_experience" value="yes" /> 有</label>
+            <label class="chip"><input type="radio" name="erp_experience" value="no" /> 沒有</label>
+          </div>
+          <small class="helper">若勾選「有」，可記錄是否使用過鼎新 ERP 或其他系統。</small>
+          <div id="erpDetails" class="erp-details hidden">
+            <div class="muted">使用過的 ERP 系統（可複選）</div>
+            <div class="inline-chips">
+              <label class="chip"><input type="checkbox" class="erp-option" value="鼎新 ERP" /> 鼎新 ERP</label>
+              <label class="chip"><input type="checkbox" id="erp_other_checkbox" class="erp-option" value="其他" data-other="true" /> 其他，請填寫</label>
+            </div>
+            <input type="text" id="erp_other" class="hidden erp-other-input" placeholder="例如：SAP、Oracle、NetSuite 等" />
           </div>
         </div>
 
@@ -986,6 +1169,170 @@
     const petCareWrapper = document.getElementById("petCareWrapper");
     const questionList = document.getElementById("questionList");
     const addQuestionBtn = document.getElementById("addQuestion");
+    const erpExperienceRadios = document.querySelectorAll("input[name='erp_experience']");
+    const erpDetails = document.getElementById("erpDetails");
+    const erpOtherCheckbox = document.getElementById("erp_other_checkbox");
+    const erpOtherInput = document.getElementById("erp_other");
+    const erpOptions = document.querySelectorAll(".erp-option");
+    const guidelinePanels = document.querySelectorAll("[data-guideline]");
+    const guidelineToggles = document.querySelectorAll(".guideline-toggle");
+
+    const guidelineData = {
+      basic_resume: {
+        questions: [
+          "「你可不可以用 2～3 分鐘簡單介紹一下你的背景？從最近的經歷開始說就好。」",
+          "「你送給我們的履歷裡，有哪個部分是你覺得最能代表你自己、最希望我們看到的？」",
+          "「我看到你在 XX 年到 XX 年之間沒有工作紀錄，那段時間主要在做些什麼呢？」"
+        ],
+        notes: [
+          "他說的內容跟履歷是不是一致？（不一致要小心）",
+          "描述是否條理清楚、有邏輯。",
+          "是否有誠實面對空白期、轉職原因。"
+        ]
+      },
+      basic_edu: {
+        questions: [
+          "「當初為什麼會選擇這個科系？跟你現在求職的職位，你覺得有什麼連結？」",
+          "「在求學期間，有沒有哪一門課程、專題或報告，讓你印象特別深刻？你在裡面的角色是什麼？」",
+          "「如果用一個例子說明，你覺得在學校裡學到、現在工作也用得上的東西是什麼？」"
+        ],
+        notes: [
+          "專業是否和職務有關（尤其是會計、品保、研發等技術性職位）。",
+          "是否能從學校經驗中整理出可轉換到職場的能力。",
+          "描述是否具體、有例子，而不是講一堆空話。"
+        ]
+      },
+      basic_exp: {
+        questions: [
+          "「在上一份工作裡，你覺得最有成就感的一件事是什麼？你具體做了哪些事情？」",
+          "「你離開上一份工作的主要原因是什麼？」",
+          "「如果用一個例子分享，你覺得之前的工作經驗，對這份職缺最有幫助的是哪一塊？」"
+        ],
+        notes: [
+          "是否真的做過履歷上寫的事情（細節一問就知道）。",
+          "是否常換工作、每次離職原因是不是合理。",
+          "他的角色是「主導」還是只是「執行別人交代」。"
+        ]
+      },
+      pro_tech: {
+        questions: [
+          "「如果以 1～10 分來看，你會給自己在 XX 技能（例如 Excel、品質檢驗、機台操作）幾分？為什麼？」",
+          "「你最近一次用到這個技能，是在做什麼任務？方便舉一個具體例子嗎？」",
+          "「實務上遇到不熟悉的工具或系統，你通常怎麼快速上手？」"
+        ],
+        notes: [
+          "他給自己的分數是否合理（可以追問：那 VLOOKUP／樞紐分析你會嗎？等）。",
+          "有沒有實際案例，而不是只說「我很熟」。",
+          "若是技術職，可以考慮情境題或當場操作／筆試。"
+        ]
+      },
+      pro_problem: {
+        questions: [
+          "「過去工作裡，有沒有遇過一個比較棘手的問題？你當時怎麼發現、怎麼處理？結果如何？」",
+          "「曾經有沒有犯過錯？你怎麼發現問題、怎麼補救？後來有沒有做什麼避免再發生？」",
+          "「遇到客訴／生產異常／文件出錯（依職務換例子），你覺得處理的優先順序會是什麼？為什麼？」"
+        ],
+        notes: [
+          "他是不是只是在抱怨別人，還是會自我反省、找方法。",
+          "描述的步驟有沒有邏輯（先確認問題 → 找原因 → 提方案 → 檢討）。",
+          "有沒有真正落到行動與結果，而不是只說「我會跟同事討論」。"
+        ]
+      },
+      pro_learning: {
+        questions: [
+          "「最近一年，你主動學習或自我進修的內容有哪些？可以舉一個最具體的例子？」",
+          "「遇到不會的工作內容，通常你第一步會怎麼做？上網查？問同事？還是自己摸索？」",
+          "「有沒有哪一次，你一開始完全不懂，但後來真的學會並能獨立完成？那個過程是怎樣？」"
+        ],
+        notes: [
+          "有沒有具體學習行為（看書、線上課程、問前輩、自己試）。",
+          "是被動等人教，還是會主動找資料。",
+          "對「不會」這件事的態度，是逃避還是願意面對。"
+        ]
+      },
+      soft_comm: {
+        questions: [
+          "「你曾經需要把一件複雜的事情，說明給不是該領域的人聽嗎？你當時怎麼講？」",
+          "「過去有沒有跟同事或主管在溝通上產生誤會？後來是怎麼處理和化解？」",
+          "「如果你覺得主管的指令不太合理，你會怎麼處理？」"
+        ],
+        notes: [
+          "他在描述時是不是有條理、會不會一直繞圈子。",
+          "面對衝突，是溝通、冷處理，還是硬碰硬。",
+          "對向上溝通的態度（敢不敢提意見，有沒有方法）。"
+        ]
+      },
+      soft_team: {
+        questions: [
+          "「分享一個你和團隊一起完成的專案／任務，你在其中扮演什麼角色？」",
+          "「如果團隊裡有人進度落後，影響整體時程，你會怎麼做？」",
+          "「你認為你的管理風格偏向如何？」"
+        ],
+        notes: [
+          "會不會只強調「我、我、我」，完全忽略團隊。",
+          "是否願意支援他人、協調，而不是只會抱怨。",
+          "是否能區分職責跟情緒，不把情緒當主角。"
+        ]
+      },
+      soft_time: {
+        questions: [
+          "「你一天的工作通常怎麼安排？有沒有自己的一套方法？」",
+          "「當同時有三件事情都很急，你會怎麼排優先順序？」",
+          "「有沒有過交不出來、delay 的情況？那次發生什麼事？你後來怎麼避免再發生？」"
+        ],
+        notes: [
+          "有沒有自己管理待辦事項的方法（筆記本、系統、Excel…）。",
+          "面對急件時會不會慌亂，還是知道先處理什麼。",
+          "對延誤是否誠實、會不會檢討自己。"
+        ]
+      },
+      soft_stress: {
+        questions: [
+          "「你在過去工作中壓力最大的一段時間是什麼狀況？當時壓力來源是什麼？怎麼撐過去的？」",
+          "「如果主管臨時在下班前丟一個緊急任務給你，你會怎麼處理？」",
+          "「你平常有沒有自己的紓壓方式？例如運動、興趣等等？」"
+        ],
+        notes: [
+          "壓力大的例子是否真實，而不是講很平淡的小事。",
+          "面對壓力時，是崩潰、逃避，還是會尋求資源／排優先順序。",
+          "有沒有建立個人調適方式（不是一定要很厲害，但要有自覺）。"
+        ]
+      },
+      perf_response: {
+        questions: [
+          "「如果今天你進公司後，主管臨時把你調去支援另外一個部門，你會怎麼看待這件事？」",
+          "「假設某個流程突然出問題，大家都在問怎麼辦，你會先做什麼？」",
+          "「如果客戶／內部同仁情緒比較激動，你會怎麼應對？」"
+        ],
+        notes: [
+          "回答是不是能快速抓到重點，而不是答非所問。",
+          "面對假設情境是否能有具體做法。",
+          "面試過程中，臨時改變問題，他會不會慌掉。"
+        ]
+      },
+      perf_attitude: {
+        questions: [
+          "「你理想中的好工作環境是什麼樣子？有哪些元素是你很在意的？」",
+          "「遇到你不喜歡但必須完成的工作，你會怎麼調整心態？」"
+        ],
+        notes: [
+          "是否只想準時上下班、不要麻煩，還是能接受合理的彈性。",
+          "對雜事、小事的態度，是抗拒還是願意扛。",
+          "對公司、產業有沒有基本尊重與興趣。"
+        ]
+      },
+      perf_manner: {
+        questions: [
+          "「今天知道要來面試，我看你準備得滿整齊的，你是怎麼看待『專業形象』這件事？」",
+          "「你覺得在辦公室裡，什麼樣的禮貌或基本規範是很重要的？」"
+        ],
+        notes: [
+          "服裝是否符合公司文化（不用一定西裝，但至少乾淨、得體）。",
+          "語氣、眼神、坐姿是否尊重、專注。",
+          "進出會議室是否會敲門、說謝謝等基本禮儀。"
+        ]
+      }
+    };
 
     const discDescriptions = {
       D: {
@@ -1018,6 +1365,42 @@
       }
     };
 
+    function renderGuidelines() {
+      guidelinePanels.forEach((panel) => {
+        const key = panel.dataset.guideline;
+        const info = guidelineData[key];
+        if (!info) return;
+        const questionsHtml = info.questions
+          .map((q) => `<li>${q}</li>`)
+          .join("");
+        const notesHtml = info.notes
+          .map((n) => `<li>${n}</li>`)
+          .join("");
+        panel.innerHTML = `
+          <div class="guideline-section">
+            <div class="guideline-heading">可以問：</div>
+            <ul>${questionsHtml}</ul>
+          </div>
+          <div class="guideline-section">
+            <div class="guideline-heading">面試官參考：</div>
+            <ul>${notesHtml}</ul>
+          </div>
+        `;
+      });
+    }
+
+    renderGuidelines();
+
+    guidelineToggles.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const panel = document.getElementById(btn.dataset.target);
+        if (!panel) return;
+        const isHidden = panel.classList.toggle("hidden");
+        btn.classList.toggle("is-open", !isHidden);
+        btn.textContent = isHidden ? "展開提問" : "收合提問";
+      });
+    });
+
     function updateTotalScore() {
       let total = 0;
       scoreInputs.forEach((sel) => {
@@ -1046,6 +1429,38 @@
     aiUsageInputs.forEach((input) =>
       input.addEventListener("change", updateAiToolsVisibility)
     );
+
+    function updateErpOtherInput() {
+      if (!erpOtherInput) return;
+      const shouldShow = erpOtherCheckbox && erpOtherCheckbox.checked;
+      erpOtherInput.classList.toggle("hidden", !shouldShow);
+      if (!shouldShow) {
+        erpOtherInput.value = "";
+      }
+    }
+
+    function updateErpVisibility() {
+      const hasExperience = Array.from(erpExperienceRadios).some(
+        (radio) => radio.checked && radio.value === "yes"
+      );
+      if (erpDetails) {
+        erpDetails.classList.toggle("hidden", !hasExperience);
+      }
+      if (!hasExperience) {
+        erpOptions.forEach((cb) => (cb.checked = false));
+        if (erpOtherInput) erpOtherInput.value = "";
+      }
+      updateErpOtherInput();
+      return hasExperience;
+    }
+
+    erpExperienceRadios.forEach((radio) =>
+      radio.addEventListener("change", updateErpVisibility)
+    );
+
+    if (erpOtherCheckbox) {
+      erpOtherCheckbox.addEventListener("change", updateErpOtherInput);
+    }
 
     function getSelectedAiTools() {
       const tools = Array.from(aiToolCheckboxes)
@@ -1107,9 +1522,23 @@
     function addQuestionNote(initialValue = "") {
       const note = document.createElement("div");
       note.className = "note-card";
+      const toolbar = document.createElement("div");
+      toolbar.className = "note-toolbar";
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "btn-remove-note";
+      removeBtn.textContent = "刪除此提問";
+      removeBtn.addEventListener("click", () => {
+        note.remove();
+        if (!questionList.children.length) {
+          addQuestionNote();
+        }
+      });
+      toolbar.appendChild(removeBtn);
       const textarea = document.createElement("textarea");
       textarea.placeholder = "輸入提問內容與面試官筆記";
       textarea.value = initialValue;
+      note.appendChild(toolbar);
       note.appendChild(textarea);
       questionList.appendChild(note);
     }
@@ -1128,9 +1557,15 @@
       });
       updateTotalScore();
       updateAiToolsVisibility();
+      updateErpVisibility();
       updateDiscInfo();
       updatePetVisibility();
       suggestionContent.classList.add("hidden");
+      guidelinePanels.forEach((panel) => panel.classList.add("hidden"));
+      guidelineToggles.forEach((btn) => {
+        btn.classList.remove("is-open");
+        btn.textContent = "展開提問";
+      });
       questionList.innerHTML = "";
       addQuestionNote();
     }
@@ -1161,6 +1596,20 @@
         .map((cb) => cb.value);
     }
 
+    function getErpSelections() {
+      const selections = [];
+      erpOptions.forEach((cb) => {
+        if (!cb.checked) return;
+        if (cb.dataset.other) {
+          const otherValue = (erpOtherInput.value || "").trim();
+          selections.push(otherValue || "其他（未填）");
+        } else {
+          selections.push(cb.value);
+        }
+      });
+      return selections;
+    }
+
     function exportToWord() {
       updateTotalScore();
 
@@ -1176,6 +1625,11 @@
             .value || "",
         ai_tools: getSelectedAiTools(),
         ai_other: aiOtherInput.value,
+        erp_experience:
+          (document.querySelector("input[name='erp_experience']:checked") || {})
+            .value || "",
+        erp_systems: getErpSelections(),
+        erp_other: erpOtherInput.value,
         disc_type: discSelect.value,
         // 基本信息
         basic_resume_score: document.getElementById("basic_resume_score").value,
@@ -1227,6 +1681,17 @@
       };
 
       const aiToolsText = data.ai_usage === "yes" ? data.ai_tools.join("、") : "未使用";
+      const erpStatusMap = {
+        yes: "有",
+        no: "沒有"
+      };
+      const erpStatusText = erpStatusMap[data.erp_experience] || "未填寫";
+      const erpSystemsText =
+        data.erp_experience === "yes"
+          ? data.erp_systems.length
+            ? data.erp_systems.join("、")
+            : "未填寫"
+          : "—";
 
       const petStatusMap = {
         yes: "有",
@@ -1383,6 +1848,8 @@
   <p><strong>自述的優點：</strong><br>${formatMultiline(data.self_strength)}</p>
   <p><strong>自述的待改進處：</strong><br>${formatMultiline(data.self_weakness)}</p>
   <p><strong>AI 使用情況：</strong> ${safeText(aiToolsText)}</p>
+  <p><strong>ERP 使用經驗：</strong> ${safeText(erpStatusText)}</p>
+  <p><strong>使用過的 ERP 系統：</strong> ${safeText(erpSystemsText)}</p>
   <p><strong>DISC 類型：</strong> ${safeText(data.disc_type || "未填寫")}</p>
 
   <div class="section-title">寵物與照護資訊</div>
@@ -1429,6 +1896,7 @@
 
     updateTotalScore();
     updateAiToolsVisibility();
+    updateErpVisibility();
     updateDiscInfo();
     updatePetVisibility();
   </script>
