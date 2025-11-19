@@ -610,7 +610,7 @@
           <label for="interviewParticipants">面試參與者</label>
           <textarea
             id="interviewParticipants"
-            placeholder="例：人資 Jane、用人主管 Eric、協作夥伴 Kelly"
+            placeholder="例：人資 John、部門主管 Max、管理夥伴 Chrissy"
           ></textarea>
         </div>
       </div>
@@ -1086,15 +1086,10 @@
 
         <div class="field">
           <label>ERP 使用經驗？</label>
-          <div class="radio-row">
-            <label class="chip"><input type="radio" name="erp_experience" value="yes" /> 有</label>
-            <label class="chip"><input type="radio" name="erp_experience" value="no" /> 沒有</label>
-          </div>
-          <small class="helper">若勾選「有」，可記錄是否使用過鼎新 ERP 或其他系統。</small>
-          <div id="erpDetails" class="erp-details hidden">
             <div class="muted">使用過的 ERP 系統（可複選）</div>
             <div class="inline-chips">
               <label class="chip"><input type="checkbox" class="erp-option" value="鼎新 ERP" /> 鼎新 ERP</label>
+              <label class="chip"><input type="checkbox" class="erp-option" value="無" /> 無</label>
               <label class="chip"><input type="checkbox" id="erp_other_checkbox" class="erp-option" value="其他" data-other="true" /> 其他，請填寫</label>
             </div>
             <input type="text" id="erp_other" class="hidden erp-other-input" placeholder="例如：SAP、Oracle、NetSuite 等" />
