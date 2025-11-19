@@ -13,33 +13,37 @@
 
     body {
       margin: 0;
-      padding: 24px;
-      background: #f3f4f6;
-      color: #111827;
+      padding: 28px;
+      background: radial-gradient(circle at 20% 20%, #eef2ff 0, transparent 25%),
+        radial-gradient(circle at 80% 0, #e0f2fe 0, transparent 25%),
+        radial-gradient(circle at 10% 80%, #fdf2f8 0, transparent 22%),
+        #f5f6fb;
+      color: #0f172a;
     }
 
     .container {
       max-width: 960px;
       margin: 0 auto;
       background: #ffffff;
-      padding: 24px 24px 32px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+      padding: 28px 28px 36px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+      border: 1px solid #e2e8f0;
     }
 
     h1 {
       text-align: center;
       margin-top: 0;
       margin-bottom: 4px;
-      font-size: 24px;
-      letter-spacing: 0.08em;
+      font-size: 26px;
+      letter-spacing: 0.06em;
     }
 
     .subtitle {
       text-align: center;
-      font-size: 13px;
-      color: #6b7280;
-      margin-bottom: 24px;
+      font-size: 14px;
+      color: #475569;
+      margin-bottom: 26px;
     }
 
     .grid {
@@ -58,7 +62,7 @@
     label {
       font-size: 13px;
       font-weight: 600;
-      color: #374151;
+      color: #1f2937;
     }
 
     input[type="text"],
@@ -66,12 +70,12 @@
     select,
     textarea {
       padding: 7px 9px;
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      border: 1px solid #d7dce3;
       font-size: 13px;
       transition: border-color 0.15s ease, box-shadow 0.15s ease,
         background-color 0.15s ease;
-      background: #f9fafb;
+      background: #f8fafc;
     }
 
     input[type="text"]:focus,
@@ -80,21 +84,22 @@
     textarea:focus {
       outline: none;
       border-color: #6366f1;
-      box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.25);
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.18);
       background: #ffffff;
     }
 
     textarea {
-      min-height: 60px;
+      min-height: 80px;
       resize: vertical;
     }
 
     .section-card {
-      border-radius: 14px;
-      border: 1px solid #e5e7eb;
-      padding: 16px 18px 18px;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      padding: 18px 20px 20px;
+      margin-bottom: 18px;
+      background: linear-gradient(145deg, #ffffff 0%, #f9fafb 45%, #f8fafc 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     }
 
     .section-header {
@@ -176,9 +181,9 @@
       gap: 10px 16px;
       align-items: center;
       padding: 10px 12px;
-      border-radius: 12px;
-      background: #f9fafb;
-      border: 1px dashed #e5e7eb;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px dashed #d7dce3;
     }
 
     .total-row label {
@@ -188,7 +193,7 @@
     .total-score {
       font-size: 18px;
       font-weight: 800;
-      color: #111827;
+      color: #0f172a;
       min-width: 60px;
       text-align: center;
     }
@@ -242,6 +247,72 @@
       transform: translateY(-1px);
     }
 
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 12px;
+      gap: 6px;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .ai-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px 10px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      font-size: 12px;
+      color: #1f2937;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .disc-box {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    .disc-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #111827;
+    }
+
+    .disc-tag {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 12px;
+      border: 1px solid #e0e7ff;
+    }
+
     small.helper {
       display: block;
       font-size: 11px;
@@ -282,6 +353,63 @@
       <div class="field">
         <label for="interviewer">面試官姓名</label>
         <input type="text" id="interviewer" />
+      </div>
+    </div>
+
+    <!-- 候選人自述與 AI/人格補充 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">候選人自述與補充資訊</div>
+        <div class="section-meta">幫助面試官快速捕捉個人亮點</div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="self_strength">候選人自述的優點</label>
+          <textarea id="self_strength" placeholder="例如：擅長跨部門溝通、能快速拆解需求、喜歡學習新工具……"></textarea>
+        </div>
+        <div class="field">
+          <label for="self_weakness">候選人自述的待改進處</label>
+          <textarea id="self_weakness" placeholder="例如：希望加強數據分析、需要更多大型專案經驗……"></textarea>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label>是否有使用 AI 軟體？</label>
+          <div class="score-select-row" style="gap:10px;">
+            <label class="chip"><input type="radio" name="ai_usage" value="yes" /> 有</label>
+            <label class="chip"><input type="radio" name="ai_usage" value="no" /> 沒有</label>
+            <span class="muted">若勾選「有」，可勾選常用工具</span>
+          </div>
+          <div id="aiToolsWrapper" class="ai-tools-grid hidden">
+            <label class="chip"><input type="checkbox" class="ai-tool" value="ChatGPT" /> ChatGPT</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Adobe" /> Adobe</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Canva" /> Canva</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Gemini" /> Gemini</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Notion AI" /> Notion AI</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Microsoft Copilot" /> Microsoft Copilot</label>
+            <div class="field" style="grid-column: 1 / -1; margin-top:4px;">
+              <label for="ai_other" class="muted">其他常用 AI（可輸入）</label>
+              <input type="text" id="ai_other" placeholder="請填寫其他工具名稱或使用情境" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="disc_type">DISC 人格測驗結果</label>
+          <select id="disc_type">
+            <option value="">— 請選擇 —</option>
+            <option value="D">支配型（D）- 老虎</option>
+            <option value="I">影響型（I）- 孔雀</option>
+            <option value="S">穩健型（S）- 無尾熊</option>
+            <option value="C">謹慎型（C）- 貓頭鷹</option>
+          </select>
+          <div id="discResult" class="disc-box">
+            <div class="disc-title">尚未選擇</div>
+            <div class="muted">選擇 DISC 類型後，系統會自動帶出人格特質與適合的職場情境，方便記錄在 Word。</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -606,7 +734,7 @@
       <div style="margin-top:12px;">
         <div class="field">
           <label for="overall_comment">總評 — 綜合評價及建議</label>
-          <textarea id="overall_comment" placeholder="例如：整體專業能力佳，建議錄用／可列入備選名單／暫不適合該職位等。"></textarea>
+            <textarea id="overall_comment" placeholder="例如：整體專業能力佳，建議錄用／可列入備選名單／暫不適合該職位等。"></textarea>
         </div>
       </div>
 
@@ -633,6 +761,43 @@
     // 自動計算總分
     const scoreInputs = document.querySelectorAll(".score-input");
     const totalScoreEl = document.getElementById("totalScore");
+    const aiUsageInputs = document.querySelectorAll("input[name='ai_usage']");
+    const aiToolsWrapper = document.getElementById("aiToolsWrapper");
+    const aiToolCheckboxes = document.querySelectorAll(".ai-tool");
+    const aiOtherInput = document.getElementById("ai_other");
+    const discSelect = document.getElementById("disc_type");
+    const discResult = document.getElementById("discResult");
+
+    const discDescriptions = {
+      D: {
+        title: "支配型（D）- 老虎",
+        traits:
+          "目標導向、行動迅速、有決斷力，喜歡挑戰並勇於承擔風險。",
+        jobs:
+          "領導者、管理者、危機處理、專案推動、需要達成目標的銷售或開發職位。"
+      },
+      I: {
+        title: "影響型（I）- 孔雀",
+        traits:
+          "熱情有活力、善於溝通、能激勵他人，樂於在團隊中互動。",
+        jobs:
+          "業務、行銷、公關、人資、需要大量人際互動與協作的職位。"
+      },
+      S: {
+        title: "穩健型（S）- 無尾熊",
+        traits:
+          "冷靜溫和、處事圓融、忠誠可信賴，偏好穩定可預測的工作步調。",
+        jobs:
+          "客戶服務、教育、行政、團隊合作型的專案支援，或是在領導帶領下執行任務。"
+      },
+      C: {
+        title: "謹慎型（C）- 貓頭鷹",
+        traits:
+          "邏輯性強、分析力佳、細心謹慎，重視規則與細節。",
+        jobs:
+          "財務、會計、專案管理、研究員、品管等需要精確性和分析力的工作。"
+      }
+    };
 
     function updateTotalScore() {
       let total = 0;
@@ -647,6 +812,50 @@
       sel.addEventListener("change", updateTotalScore);
     });
 
+    function updateAiToolsVisibility() {
+      const usingAi =
+        (document.querySelector("input[name='ai_usage']:checked") || {})
+          .value === "yes";
+      aiToolsWrapper.classList.toggle("hidden", !usingAi);
+      if (!usingAi) {
+        aiToolCheckboxes.forEach((cb) => (cb.checked = false));
+        aiOtherInput.value = "";
+      }
+      return usingAi;
+    }
+
+    aiUsageInputs.forEach((input) =>
+      input.addEventListener("change", updateAiToolsVisibility)
+    );
+
+    function getSelectedAiTools() {
+      const tools = Array.from(aiToolCheckboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value);
+      if (aiOtherInput.value.trim()) tools.push(aiOtherInput.value.trim());
+      return tools;
+    }
+
+    function updateDiscInfo() {
+      const type = discSelect.value;
+      const info = discDescriptions[type];
+      if (!info) {
+        discResult.innerHTML =
+          '<div class="disc-title">尚未選擇</div><div class="muted">選擇 DISC 類型後，系統會自動帶出人格特質與適合的職場情境，方便記錄在 Word。</div>';
+        return;
+      }
+
+      discResult.innerHTML = `
+        <div class="disc-tag">${info.title}</div>
+        <div class="disc-title">人格特質</div>
+        <div>${info.traits}</div>
+        <div class="disc-title" style="margin-top:6px;">適合的職場情境</div>
+        <div>${info.jobs}</div>
+      `;
+    }
+
+    discSelect.addEventListener("change", updateDiscInfo);
+
     function resetForm() {
       if (!confirm("確定要清空整份評分表嗎？")) return;
       document.querySelectorAll("input, textarea, select").forEach((el) => {
@@ -656,7 +865,14 @@
           el.value = "";
         }
       });
+      document
+        .querySelectorAll("input[name='ai_usage']")
+        .forEach((radio) => (radio.checked = false));
+      aiToolCheckboxes.forEach((cb) => (cb.checked = false));
+      aiOtherInput.value = "";
       updateTotalScore();
+      updateAiToolsVisibility();
+      updateDiscInfo();
     }
 
     function safeText(text) {
@@ -667,6 +883,10 @@
                  .replace(/"/g, "&quot;");
     }
 
+    function formatMultiline(text) {
+      return safeText(text || "").replace(/\n/g, "<br>");
+    }
+
     function exportToWord() {
       updateTotalScore();
 
@@ -675,6 +895,14 @@
         position: document.getElementById("position").value || "",
         interviewDate: document.getElementById("interviewDate").value || "",
         interviewer: document.getElementById("interviewer").value || "",
+        self_strength: document.getElementById("self_strength").value,
+        self_weakness: document.getElementById("self_weakness").value,
+        ai_usage:
+          (document.querySelector("input[name='ai_usage']:checked") || {})
+            .value || "",
+        ai_tools: getSelectedAiTools(),
+        ai_other: aiOtherInput.value,
+        disc_type: discSelect.value,
         // 基本信息
         basic_resume_score: document.getElementById("basic_resume_score").value,
         basic_resume_comment: document.getElementById("basic_resume_comment").value,
@@ -711,6 +939,16 @@
         signature: document.getElementById("signature").value
       };
 
+      const discInfo = discDescriptions[data.disc_type] || {};
+      const aiUsageLabel =
+        data.ai_usage === "yes" ? "有" : data.ai_usage === "no" ? "沒有" : "";
+      const aiToolsDisplay =
+        data.ai_tools && data.ai_tools.length > 0
+          ? data.ai_tools.join("、")
+          : data.ai_usage === "yes"
+            ? "已使用，但未勾選具體工具"
+            : "";
+
       // 把日期轉成比較好看的格式（YYYY-MM-DD -> YYYY/MM/DD）
       let dateDisplay = data.interviewDate;
       if (dateDisplay && dateDisplay.indexOf("-") > -1) {
@@ -730,14 +968,18 @@ body {
   font-size: 12pt;
   line-height: 1.6;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-td {
-  padding: 4px 6px;
-  vertical-align: top;
-}
+ table {
+   width: 100%;
+   border-collapse: collapse;
+   table-layout: fixed;
+ }
+ td {
+   padding: 4px 6px;
+   vertical-align: top;
+   word-wrap: break-word;
+   word-break: break-all;
+   white-space: pre-wrap;
+ }
 .section-title {
   font-weight: bold;
   margin-top: 8px;
@@ -766,6 +1008,13 @@ th, td.border {
 th {
   background: #f3f4f6;
 }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+}
 </style>
 </head>
 <body>
@@ -782,6 +1031,30 @@ th {
     </tr>
   </table>
 
+  <div class="section-title">候選人自述與補充資訊</div>
+  <table>
+    <tr>
+      <th class="border">自述優點</th>
+      <td class="border">${formatMultiline(data.self_strength)}</td>
+    </tr>
+    <tr>
+      <th class="border">自述待改進處</th>
+      <td class="border">${formatMultiline(data.self_weakness)}</td>
+    </tr>
+    <tr>
+      <th class="border">AI 軟體使用</th>
+      <td class="border">${safeText(aiUsageLabel)}${aiToolsDisplay ? `｜工具：${safeText(aiToolsDisplay)}` : ""}</td>
+    </tr>
+    <tr>
+      <th class="border">DISC 人格</th>
+      <td class="border">
+        ${safeText(discInfo.title || "")}
+        ${discInfo.traits ? `<div>特質：${safeText(discInfo.traits)}</div>` : ""}
+        ${discInfo.jobs ? `<div>適合工作：${safeText(discInfo.jobs)}</div>` : ""}
+      </td>
+    </tr>
+  </table>
+
   <div class="box-line"></div>
 
   <div class="section-title">一、基本信息（每項滿分 5 分）</div>
@@ -794,17 +1067,17 @@ th {
     <tr>
       <td class="border">履歷完整度</td>
       <td class="border score-cell">${safeText(data.basic_resume_score)}</td>
-      <td class="border">${safeText(data.basic_resume_comment)}</td>
+      <td class="border">${formatMultiline(data.basic_resume_comment)}</td>
     </tr>
     <tr>
       <td class="border">教育背景</td>
       <td class="border score-cell">${safeText(data.basic_edu_score)}</td>
-      <td class="border">${safeText(data.basic_edu_comment)}</td>
+      <td class="border">${formatMultiline(data.basic_edu_comment)}</td>
     </tr>
     <tr>
       <td class="border">工作經歷</td>
       <td class="border score-cell">${safeText(data.basic_exp_score)}</td>
-      <td class="border">${safeText(data.basic_exp_comment)}</td>
+      <td class="border">${formatMultiline(data.basic_exp_comment)}</td>
     </tr>
   </table>
 
@@ -818,17 +1091,17 @@ th {
     <tr>
       <td class="border">技術技能</td>
       <td class="border score-cell">${safeText(data.pro_tech_score)}</td>
-      <td class="border">${safeText(data.pro_tech_comment)}</td>
+      <td class="border">${formatMultiline(data.pro_tech_comment)}</td>
     </tr>
     <tr>
       <td class="border">問題解決能力</td>
       <td class="border score-cell">${safeText(data.pro_problem_score)}</td>
-      <td class="border">${safeText(data.pro_problem_comment)}</td>
+      <td class="border">${formatMultiline(data.pro_problem_comment)}</td>
     </tr>
     <tr>
       <td class="border">學習能力</td>
       <td class="border score-cell">${safeText(data.pro_learning_score)}</td>
-      <td class="border">${safeText(data.pro_learning_comment)}</td>
+      <td class="border">${formatMultiline(data.pro_learning_comment)}</td>
     </tr>
   </table>
 
@@ -842,22 +1115,22 @@ th {
     <tr>
       <td class="border">溝通能力</td>
       <td class="border score-cell">${safeText(data.soft_comm_score)}</td>
-      <td class="border">${safeText(data.soft_comm_comment)}</td>
+      <td class="border">${formatMultiline(data.soft_comm_comment)}</td>
     </tr>
     <tr>
       <td class="border">團隊合作</td>
       <td class="border score-cell">${safeText(data.soft_team_score)}</td>
-      <td class="border">${safeText(data.soft_team_comment)}</td>
+      <td class="border">${formatMultiline(data.soft_team_comment)}</td>
     </tr>
     <tr>
       <td class="border">時間管理</td>
       <td class="border score-cell">${safeText(data.soft_time_score)}</td>
-      <td class="border">${safeText(data.soft_time_comment)}</td>
+      <td class="border">${formatMultiline(data.soft_time_comment)}</td>
     </tr>
     <tr>
       <td class="border">抗壓能力</td>
       <td class="border score-cell">${safeText(data.soft_stress_score)}</td>
-      <td class="border">${safeText(data.soft_stress_comment)}</td>
+      <td class="border">${formatMultiline(data.soft_stress_comment)}</td>
     </tr>
   </table>
 
@@ -871,17 +1144,17 @@ th {
     <tr>
       <td class="border">應對能力</td>
       <td class="border score-cell">${safeText(data.perf_response_score)}</td>
-      <td class="border">${safeText(data.perf_response_comment)}</td>
+      <td class="border">${formatMultiline(data.perf_response_comment)}</td>
     </tr>
     <tr>
       <td class="border">職業態度</td>
       <td class="border score-cell">${safeText(data.perf_attitude_score)}</td>
-      <td class="border">${safeText(data.perf_attitude_comment)}</td>
+      <td class="border">${formatMultiline(data.perf_attitude_comment)}</td>
     </tr>
     <tr>
       <td class="border">儀表儀態</td>
       <td class="border score-cell">${safeText(data.perf_manner_score)}</td>
-      <td class="border">${safeText(data.perf_manner_comment)}</td>
+      <td class="border">${formatMultiline(data.perf_manner_comment)}</td>
     </tr>
   </table>
 
@@ -890,7 +1163,7 @@ th {
   <p><strong>總分（滿分 100 分）：</strong> ${safeText(data.totalScore)}</p>
 
   <p><strong>總評 — 綜合評價及建議：</strong></p>
-  <p>${safeText(data.overall_comment).replace(/\\n/g, "<br>")}</p>
+  <p>${formatMultiline(data.overall_comment)}</p>
 
   <div class="box-line"></div>
 
@@ -923,6 +1196,10 @@ th {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     }
+
+    updateTotalScore();
+    updateAiToolsVisibility();
+    updateDiscInfo();
   </script>
 </body>
 </html>
