@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>面試評分表</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+        "Microsoft JhengHei", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px 24px 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 4px;
+      font-size: 24px;
+      letter-spacing: 0.08em;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 18px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 13px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background-color 0.15s ease;
+      background: #f9fafb;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.25);
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .section-card {
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      padding: 16px 18px 18px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #e5e7eb;
+      padding-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .section-meta {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: minmax(110px, 140px) 140px 1fr;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 6px 0;
+      border-bottom: 1px dashed #f3f4f6;
+    }
+
+    .item-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      padding-top: 4px;
+    }
+
+    .score-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .score-select-row {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 12px;
+      color: #6b7280;
+      flex-wrap: wrap;
+    }
+
+    .score-select-row select {
+      width: 70px;
+    }
+
+    .score-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      border: 1px solid #e0e7ff;
+    }
+
+    .comment-label {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .total-row {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px dashed #e5e7eb;
+    }
+
+    .total-row label {
+      margin-right: 4px;
+    }
+
+    .total-score {
+      font-size: 18px;
+      font-weight: 800;
+      color: #111827;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .total-hint {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background-color 0.15s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.45);
+      background: linear-gradient(135deg, #4338ca, #4f46e5);
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+      transform: translateY(-1px);
+    }
+
+    small.helper {
+      display: block;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 720px) {
+      .item-row {
+        grid-template-columns: 1fr;
+      }
+
+      .item-label {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>面試評分表</h1>
+    <div class="subtitle">請依實際面試情況評分與填寫評語，完成後可匯出為 Word 檔。</div>
+
+    <!-- 基本資料 -->
+    <div class="grid">
+      <div class="field">
+        <label for="candidateName">應聘者姓名</label>
+        <input type="text" id="candidateName" />
+      </div>
+      <div class="field">
+        <label for="position">面試職位</label>
+        <input type="text" id="position" />
+      </div>
+      <div class="field">
+        <label for="interviewDate">面試日期</label>
+        <input type="date" id="interviewDate" />
+      </div>
+      <div class="field">
+        <label for="interviewer">面試官姓名</label>
+        <input type="text" id="interviewer" />
+      </div>
+    </div>
+
+    <!-- 一、基本信息 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">一、基本信息</div>
+        <div class="section-meta">每項滿分 5 分</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">履歷完整度</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–5 分</span>
+            <label for="basic_resume_score">評分</label>
+            <select id="basic_resume_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+            </select>
+          </div>
+          <small class="helper">履歷是否清楚、完整呈現與職位相關資訊</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="basic_resume_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">教育背景</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–5 分</span>
+            <label for="basic_edu_score">評分</label>
+            <select id="basic_edu_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+            </select>
+          </div>
+          <small class="helper">學歷是否符合職位需求，專業相關性</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="basic_edu_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">工作經歷</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–5 分</span>
+            <label for="basic_exp_score">評分</label>
+            <select id="basic_exp_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+            </select>
+          </div>
+          <small class="helper">過往經歷與職務內容之匹配程度</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="basic_exp_comment"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 二、專業能力 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">二、專業能力</div>
+        <div class="section-meta">每項滿分 10 分</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">技術技能</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="pro_tech_score">評分</label>
+            <select id="pro_tech_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">專業技能熟練度、工具與系統使用能力</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="pro_tech_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">問題解決能力</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="pro_problem_score">評分</label>
+            <select id="pro_problem_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">面對情境題或實際問題時的分析與解法</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="pro_problem_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">學習能力</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="pro_learning_score">評分</label>
+            <select id="pro_learning_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">新知學習速度、主動性與應用能力</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="pro_learning_comment"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三、軟技能 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">三、軟技能</div>
+        <div class="section-meta">每項滿分 10 分</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">溝通能力</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="soft_comm_score">評分</label>
+            <select id="soft_comm_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">表達清楚度、傾聽及雙向溝通效果</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="soft_comm_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">團隊合作</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="soft_team_score">評分</label>
+            <select id="soft_team_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">與同事協作、分享與支援程度</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="soft_team_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">時間管理</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="soft_time_score">評分</label>
+            <select id="soft_time_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">優先順序安排、準時與交付狀況</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="soft_time_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">抗壓能力</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–10 分</span>
+            <label for="soft_stress_score">評分</label>
+            <select id="soft_stress_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+          <small class="helper">面對壓力、突發狀況時的穩定度</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="soft_stress_comment"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四、面試表現 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">四、面試表現</div>
+        <div class="section-meta">每項滿分 5 分</div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">應對能力</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–5 分</span>
+            <label for="perf_response_score">評分</label>
+            <select id="perf_response_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+            </select>
+          </div>
+          <small class="helper">對問題反應速度、思路清晰度</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="perf_response_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">職業態度</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–5 分</span>
+            <label for="perf_attitude_score">評分</label>
+            <select id="perf_attitude_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+            </select>
+          </div>
+          <small class="helper">對工作熱忱、穩定度及價值觀</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="perf_attitude_comment"></textarea>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-label">儀表儀態</div>
+        <div class="score-wrapper">
+          <div class="score-select-row">
+            <span class="score-tag">1–5 分</span>
+            <label for="perf_manner_score">評分</label>
+            <select id="perf_manner_score" class="score-input" data-field>
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+            </select>
+          </div>
+          <small class="helper">穿著、禮貌及整體專業形象</small>
+        </div>
+        <div>
+          <div class="comment-label">評語</div>
+          <textarea id="perf_manner_comment"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 總評 -->
+    <div class="section-card">
+      <div class="total-row">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <label>總分(滿分 100 分)：</label>
+          <div class="total-score" id="totalScore">—</div>
+        </div>
+        <div class="total-hint">
+          系統會自動加總所有評分。若有未填寫的項目，總分會略低於 100 分。
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="field">
+          <label for="overall_comment">總評 — 綜合評價及建議</label>
+          <textarea id="overall_comment" placeholder="例如：整體專業能力佳，建議錄用／可列入備選名單／暫不適合該職位等。"></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;" class="grid">
+        <div class="field">
+          <label for="signature">面試官簽名（可輸入姓名，Word 中可再手簽）：</label>
+          <input type="text" id="signature" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作按鈕 -->
+    <div class="actions">
+      <button type="button" class="btn-secondary" onclick="resetForm()">
+        重置表單
+      </button>
+      <button type="button" class="btn-primary" onclick="exportToWord()">
+        匯出為 Word
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // 自動計算總分
+    const scoreInputs = document.querySelectorAll(".score-input");
+    const totalScoreEl = document.getElementById("totalScore");
+
+    function updateTotalScore() {
+      let total = 0;
+      scoreInputs.forEach((sel) => {
+        const val = parseInt(sel.value, 10);
+        if (!isNaN(val)) total += val;
+      });
+      totalScoreEl.textContent = total > 0 ? total : "—";
+    }
+
+    scoreInputs.forEach((sel) => {
+      sel.addEventListener("change", updateTotalScore);
+    });
+
+    function resetForm() {
+      if (!confirm("確定要清空整份評分表嗎？")) return;
+      document.querySelectorAll("input, textarea, select").forEach((el) => {
+        if (el.tagName === "SELECT") {
+          el.value = "";
+        } else {
+          el.value = "";
+        }
+      });
+      updateTotalScore();
+    }
+
+    function safeText(text) {
+      if (!text) return "";
+      return text.replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;");
+    }
+
+    function exportToWord() {
+      updateTotalScore();
+
+      const data = {
+        candidateName: document.getElementById("candidateName").value || "",
+        position: document.getElementById("position").value || "",
+        interviewDate: document.getElementById("interviewDate").value || "",
+        interviewer: document.getElementById("interviewer").value || "",
+        // 基本信息
+        basic_resume_score: document.getElementById("basic_resume_score").value,
+        basic_resume_comment: document.getElementById("basic_resume_comment").value,
+        basic_edu_score: document.getElementById("basic_edu_score").value,
+        basic_edu_comment: document.getElementById("basic_edu_comment").value,
+        basic_exp_score: document.getElementById("basic_exp_score").value,
+        basic_exp_comment: document.getElementById("basic_exp_comment").value,
+        // 專業能力
+        pro_tech_score: document.getElementById("pro_tech_score").value,
+        pro_tech_comment: document.getElementById("pro_tech_comment").value,
+        pro_problem_score: document.getElementById("pro_problem_score").value,
+        pro_problem_comment: document.getElementById("pro_problem_comment").value,
+        pro_learning_score: document.getElementById("pro_learning_score").value,
+        pro_learning_comment: document.getElementById("pro_learning_comment").value,
+        // 軟技能
+        soft_comm_score: document.getElementById("soft_comm_score").value,
+        soft_comm_comment: document.getElementById("soft_comm_comment").value,
+        soft_team_score: document.getElementById("soft_team_score").value,
+        soft_team_comment: document.getElementById("soft_team_comment").value,
+        soft_time_score: document.getElementById("soft_time_score").value,
+        soft_time_comment: document.getElementById("soft_time_comment").value,
+        soft_stress_score: document.getElementById("soft_stress_score").value,
+        soft_stress_comment: document.getElementById("soft_stress_comment").value,
+        // 面試表現
+        perf_response_score: document.getElementById("perf_response_score").value,
+        perf_response_comment: document.getElementById("perf_response_comment").value,
+        perf_attitude_score: document.getElementById("perf_attitude_score").value,
+        perf_attitude_comment: document.getElementById("perf_attitude_comment").value,
+        perf_manner_score: document.getElementById("perf_manner_score").value,
+        perf_manner_comment: document.getElementById("perf_manner_comment").value,
+        // 總評與簽名
+        totalScore: totalScoreEl.textContent === "—" ? "" : totalScoreEl.textContent,
+        overall_comment: document.getElementById("overall_comment").value,
+        signature: document.getElementById("signature").value
+      };
+
+      // 把日期轉成比較好看的格式（YYYY-MM-DD -> YYYY/MM/DD）
+      let dateDisplay = data.interviewDate;
+      if (dateDisplay && dateDisplay.indexOf("-") > -1) {
+        const parts = dateDisplay.split("-");
+        dateDisplay = parts[0] + "/" + parts[1] + "/" + parts[2];
+      }
+
+      const htmlContent = `
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>面試評分表</title>
+<style>
+body {
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  font-size: 12pt;
+  line-height: 1.6;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td {
+  padding: 4px 6px;
+  vertical-align: top;
+}
+.section-title {
+  font-weight: bold;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+.hr-line {
+  border-bottom: 1px solid #000;
+  margin: 4px 0 6px 0;
+}
+.signature-line {
+  margin-top: 24px;
+}
+.box-line {
+  border-top: 1px solid #000;
+  margin: 12px 0;
+}
+.score-cell {
+  width: 120px;
+}
+.comment-cell {
+  width: auto;
+}
+th, td.border {
+  border: 1px solid #000;
+}
+th {
+  background: #f3f4f6;
+}
+</style>
+</head>
+<body>
+  <h2 style="text-align:center;">面試評分表</h2>
+
+  <table style="margin-bottom:4px;">
+    <tr>
+      <td>應聘者姓名：${safeText(data.candidateName)}</td>
+      <td>面試職位：${safeText(data.position)}</td>
+    </tr>
+    <tr>
+      <td>面試日期：${safeText(dateDisplay)}</td>
+      <td>面試官姓名：${safeText(data.interviewer)}</td>
+    </tr>
+  </table>
+
+  <div class="box-line"></div>
+
+  <div class="section-title">一、基本信息（每項滿分 5 分）</div>
+  <table>
+    <tr>
+      <th class="border">項目</th>
+      <th class="border">評分</th>
+      <th class="border">評語</th>
+    </tr>
+    <tr>
+      <td class="border">履歷完整度</td>
+      <td class="border score-cell">${safeText(data.basic_resume_score)}</td>
+      <td class="border">${safeText(data.basic_resume_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">教育背景</td>
+      <td class="border score-cell">${safeText(data.basic_edu_score)}</td>
+      <td class="border">${safeText(data.basic_edu_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">工作經歷</td>
+      <td class="border score-cell">${safeText(data.basic_exp_score)}</td>
+      <td class="border">${safeText(data.basic_exp_comment)}</td>
+    </tr>
+  </table>
+
+  <div class="section-title">二、專業能力（每項滿分 10 分）</div>
+  <table>
+    <tr>
+      <th class="border">項目</th>
+      <th class="border">評分</th>
+      <th class="border">評語</th>
+    </tr>
+    <tr>
+      <td class="border">技術技能</td>
+      <td class="border score-cell">${safeText(data.pro_tech_score)}</td>
+      <td class="border">${safeText(data.pro_tech_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">問題解決能力</td>
+      <td class="border score-cell">${safeText(data.pro_problem_score)}</td>
+      <td class="border">${safeText(data.pro_problem_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">學習能力</td>
+      <td class="border score-cell">${safeText(data.pro_learning_score)}</td>
+      <td class="border">${safeText(data.pro_learning_comment)}</td>
+    </tr>
+  </table>
+
+  <div class="section-title">三、軟技能（每項滿分 10 分）</div>
+  <table>
+    <tr>
+      <th class="border">項目</th>
+      <th class="border">評分</th>
+      <th class="border">評語</th>
+    </tr>
+    <tr>
+      <td class="border">溝通能力</td>
+      <td class="border score-cell">${safeText(data.soft_comm_score)}</td>
+      <td class="border">${safeText(data.soft_comm_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">團隊合作</td>
+      <td class="border score-cell">${safeText(data.soft_team_score)}</td>
+      <td class="border">${safeText(data.soft_team_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">時間管理</td>
+      <td class="border score-cell">${safeText(data.soft_time_score)}</td>
+      <td class="border">${safeText(data.soft_time_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">抗壓能力</td>
+      <td class="border score-cell">${safeText(data.soft_stress_score)}</td>
+      <td class="border">${safeText(data.soft_stress_comment)}</td>
+    </tr>
+  </table>
+
+  <div class="section-title">四、面試表現（每項滿分 5 分）</div>
+  <table>
+    <tr>
+      <th class="border">項目</th>
+      <th class="border">評分</th>
+      <th class="border">評語</th>
+    </tr>
+    <tr>
+      <td class="border">應對能力</td>
+      <td class="border score-cell">${safeText(data.perf_response_score)}</td>
+      <td class="border">${safeText(data.perf_response_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">職業態度</td>
+      <td class="border score-cell">${safeText(data.perf_attitude_score)}</td>
+      <td class="border">${safeText(data.perf_attitude_comment)}</td>
+    </tr>
+    <tr>
+      <td class="border">儀表儀態</td>
+      <td class="border score-cell">${safeText(data.perf_manner_score)}</td>
+      <td class="border">${safeText(data.perf_manner_comment)}</td>
+    </tr>
+  </table>
+
+  <div class="box-line"></div>
+
+  <p><strong>總分（滿分 100 分）：</strong> ${safeText(data.totalScore)}</p>
+
+  <p><strong>總評 — 綜合評價及建議：</strong></p>
+  <p>${safeText(data.overall_comment).replace(/\\n/g, "<br>")}</p>
+
+  <div class="box-line"></div>
+
+  <p class="signature-line">
+    面試官簽名： __________________________
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    （姓名：${safeText(data.signature)}）
+  </p>
+
+</body>
+</html>
+      `;
+
+      const blob = new Blob(["\ufeff", htmlContent], {
+        type: "application/msword;charset=utf-8"
+      });
+
+      let filename = "面試評分表";
+      if (data.candidateName) {
+        filename += "-" + data.candidateName;
+      }
+      filename += ".doc";
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
