@@ -22,7 +22,7 @@
     }
 
     .container {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
       background: #ffffff;
       padding: 28px 28px 36px;
@@ -48,7 +48,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 12px 18px;
       margin-bottom: 20px;
     }
@@ -56,12 +56,12 @@
     .field {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     label {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: #1f2937;
     }
 
@@ -69,13 +69,14 @@
     input[type="date"],
     select,
     textarea {
-      padding: 7px 9px;
-      border-radius: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
       border: 1px solid #d7dce3;
       font-size: 13px;
       transition: border-color 0.15s ease, box-shadow 0.15s ease,
         background-color 0.15s ease;
       background: #f8fafc;
+      width: 100%;
     }
 
     input[type="text"]:focus,
@@ -89,7 +90,7 @@
     }
 
     textarea {
-      min-height: 80px;
+      min-height: 120px;
       resize: vertical;
     }
 
@@ -105,15 +106,17 @@
     .section-header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       margin-bottom: 10px;
       border-bottom: 1px dashed #e5e7eb;
       padding-bottom: 6px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .section-title {
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .section-meta {
@@ -123,10 +126,10 @@
 
     .item-row {
       display: grid;
-      grid-template-columns: minmax(110px, 140px) 140px 1fr;
-      gap: 8px;
+      grid-template-columns: minmax(140px, 160px) 160px 1fr;
+      gap: 10px;
       align-items: flex-start;
-      padding: 6px 0;
+      padding: 8px 0;
       border-bottom: 1px dashed #f3f4f6;
     }
 
@@ -136,7 +139,7 @@
 
     .item-label {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: #374151;
       padding-top: 4px;
     }
@@ -144,12 +147,12 @@
     .score-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .score-select-row {
       display: flex;
-      gap: 4px;
+      gap: 6px;
       align-items: center;
       font-size: 12px;
       color: #6b7280;
@@ -157,7 +160,7 @@
     }
 
     .score-select-row select {
-      width: 70px;
+      width: 80px;
     }
 
     .score-tag {
@@ -180,7 +183,7 @@
       flex-wrap: wrap;
       gap: 10px 16px;
       align-items: center;
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: 14px;
       background: #f8fafc;
       border: 1px dashed #d7dce3;
@@ -191,7 +194,7 @@
     }
 
     .total-score {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       color: #0f172a;
       min-width: 60px;
@@ -215,14 +218,15 @@
       border: none;
       cursor: pointer;
       border-radius: 999px;
-      padding: 8px 16px;
+      padding: 9px 16px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: transform 0.08s ease, box-shadow 0.08s ease,
         background-color 0.15s ease;
+      white-space: nowrap;
     }
 
     .btn-primary {
@@ -245,6 +249,14 @@
     .btn-secondary:hover {
       background: #d1d5db;
       transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #4338ca;
+      border: 1px solid #e0e7ff;
+      padding: 8px 14px;
+      border-radius: 12px;
     }
 
     .pill {
@@ -320,7 +332,93 @@
       margin-top: 2px;
     }
 
-    @media (max-width: 720px) {
+    .collapse-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: #eef2ff;
+      color: #4338ca;
+      border: 1px solid #e0e7ff;
+      font-weight: 700;
+    }
+
+    .accordion {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fbfcff;
+      margin-top: 12px;
+    }
+
+    .accordion details {
+      border-bottom: 1px dashed #e5e7eb;
+      padding: 8px 0;
+    }
+
+    .accordion details:last-child {
+      border-bottom: none;
+    }
+
+    .accordion summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #1f2937;
+      outline: none;
+    }
+
+    .accordion ul {
+      margin: 8px 0 0 18px;
+      color: #374151;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .sub-note {
+      color: #6b7280;
+      font-size: 12px;
+      margin: 8px 0 0 18px;
+    }
+
+    .pet-options,
+    .radio-row,
+    .inline-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tag-pill {
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      font-size: 12px;
+      color: #1f2937;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .notes-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .note-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px;
+      background: #f9fafb;
+    }
+
+    .note-card textarea {
+      min-height: 100px;
+    }
+
+    @media (max-width: 960px) {
       .item-row {
         grid-template-columns: 1fr;
       }
@@ -337,79 +435,85 @@
     <div class="subtitle">請依實際面試情況評分與填寫評語，完成後可匯出為 Word 檔。</div>
 
     <!-- 基本資料 -->
-    <div class="grid">
-      <div class="field">
-        <label for="candidateName">應聘者姓名</label>
-        <input type="text" id="candidateName" />
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">基本資料</div>
+        <div class="section-meta">請先確認面試對象與面試官資訊</div>
       </div>
-      <div class="field">
-        <label for="position">面試職位</label>
-        <input type="text" id="position" />
-      </div>
-      <div class="field">
-        <label for="interviewDate">面試日期</label>
-        <input type="date" id="interviewDate" />
-      </div>
-      <div class="field">
-        <label for="interviewer">面試官姓名</label>
-        <input type="text" id="interviewer" />
+      <div class="grid">
+        <div class="field">
+          <label for="candidateName">應聘者姓名</label>
+          <input type="text" id="candidateName" />
+        </div>
+        <div class="field">
+          <label for="position">面試職位</label>
+          <input type="text" id="position" />
+        </div>
+        <div class="field">
+          <label for="interviewDate">面試日期</label>
+          <input type="date" id="interviewDate" />
+        </div>
+        <div class="field">
+          <label for="interviewer">面試官姓名</label>
+          <input type="text" id="interviewer" />
+        </div>
       </div>
     </div>
 
-    <!-- 候選人自述與 AI/人格補充 -->
+    <!-- 問題建議 -->
     <div class="section-card">
       <div class="section-header">
-        <div class="section-title">候選人自述與補充資訊</div>
-        <div class="section-meta">幫助面試官快速捕捉個人亮點</div>
+        <div class="section-title">問題建議</div>
+        <div class="section-meta">點擊展開，可依類別查看題目與評斷方法</div>
+        <button type="button" class="btn-ghost" id="toggleSuggestions">展開 / 收合</button>
       </div>
-
-      <div class="grid">
-        <div class="field">
-          <label for="self_strength">候選人自述的優點</label>
-          <textarea id="self_strength" placeholder="例如：擅長跨部門溝通、能快速拆解需求、喜歡學習新工具……"></textarea>
-        </div>
-        <div class="field">
-          <label for="self_weakness">候選人自述的待改進處</label>
-          <textarea id="self_weakness" placeholder="例如：希望加強數據分析、需要更多大型專案經驗……"></textarea>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="field">
-          <label>是否有使用 AI 軟體？</label>
-          <div class="score-select-row" style="gap:10px;">
-            <label class="chip"><input type="radio" name="ai_usage" value="yes" /> 有</label>
-            <label class="chip"><input type="radio" name="ai_usage" value="no" /> 沒有</label>
-            <span class="muted">若勾選「有」，可勾選常用工具</span>
-          </div>
-          <div id="aiToolsWrapper" class="ai-tools-grid hidden">
-            <label class="chip"><input type="checkbox" class="ai-tool" value="ChatGPT" /> ChatGPT</label>
-            <label class="chip"><input type="checkbox" class="ai-tool" value="Adobe" /> Adobe</label>
-            <label class="chip"><input type="checkbox" class="ai-tool" value="Canva" /> Canva</label>
-            <label class="chip"><input type="checkbox" class="ai-tool" value="Gemini" /> Gemini</label>
-            <label class="chip"><input type="checkbox" class="ai-tool" value="Notion AI" /> Notion AI</label>
-            <label class="chip"><input type="checkbox" class="ai-tool" value="Microsoft Copilot" /> Microsoft Copilot</label>
-            <div class="field" style="grid-column: 1 / -1; margin-top:4px;">
-              <label for="ai_other" class="muted">其他常用 AI（可輸入）</label>
-              <input type="text" id="ai_other" placeholder="請填寫其他工具名稱或使用情境" />
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="disc_type">DISC 人格測驗結果</label>
-          <select id="disc_type">
-            <option value="">— 請選擇 —</option>
-            <option value="D">支配型（D）- 老虎</option>
-            <option value="I">影響型（I）- 孔雀</option>
-            <option value="S">穩健型（S）- 無尾熊</option>
-            <option value="C">謹慎型（C）- 貓頭鷹</option>
-          </select>
-          <div id="discResult" class="disc-box">
-            <div class="disc-title">尚未選擇</div>
-            <div class="muted">選擇 DISC 類型後，系統會自動帶出人格特質與適合的職場情境，方便記錄在 Word。</div>
-          </div>
-        </div>
+      <div id="suggestionContent" class="accordion hidden">
+        <details>
+          <summary>一、基本資訊（履歷完整度／教育背景／工作經歷）</summary>
+          <ul>
+            <li><strong>履歷完整度：</strong>用 2–3 分鐘自我介紹、最想讓我們看到的重點、空白期的安排。</li>
+            <li class="sub-note">評估：內容是否與履歷一致、敘述條理、是否誠實說明空白期與轉職原因。</li>
+            <li><strong>教育背景：</strong>為何選擇科系、與求職職位的連結、最印象深刻的課程/專題、學以致用例子。</li>
+            <li class="sub-note">評估：與職務的專業相關性、能否轉換到職場、是否具體有例子。</li>
+            <li><strong>工作經歷：</strong>最有成就的事與具體作為、離職原因、對本職缺最有幫助的經驗。</li>
+            <li class="sub-note">評估：實際做過的細節、穩定度與離職理由、主導程度。</li>
+          </ul>
+        </details>
+        <details>
+          <summary>二、專業能力（技術技能／問題解決／學習能力）</summary>
+          <ul>
+            <li><strong>技術技能：</strong>自評 1–10 分與原因、最近一次使用的任務案例、如何快速上手新工具。</li>
+            <li class="sub-note">評估：分數合理性、是否有實例、是否能情境測驗或操作。</li>
+            <li><strong>問題解決能力：</strong>棘手問題與處理方式、犯錯的補救與預防、客訴/異常的優先順序。</li>
+            <li class="sub-note">評估：是否反省、步驟邏輯、是否落到行動與結果。</li>
+            <li><strong>學習能力：</strong>最近一年自學例子、遇到不會時的第一步、從零學會的經驗。</li>
+            <li class="sub-note">評估：主動學習行為、態度積極與否、面對不會是否願意嘗試。</li>
+          </ul>
+        </details>
+        <details>
+          <summary>三、軟技能（溝通／團隊合作／時間管理／抗壓）</summary>
+          <ul>
+            <li><strong>溝通能力：</strong>向非專業者解釋複雜事、化解誤會的案例、面對不合理指令的處理方式。</li>
+            <li class="sub-note">評估：敘述條理、衝突處理、向上溝通態度。</li>
+            <li><strong>團隊合作：</strong>團隊專案中的角色、面對他人落後的處理、個人管理風格。</li>
+            <li class="sub-note">評估：是否只強調自己、是否願意協調支援、情緒與職責分離。</li>
+            <li><strong>時間管理：</strong>每日安排方式、多急件時的排序、延期案例與改善。</li>
+            <li class="sub-note">評估：是否有方法、面對急件的沉著度、對延誤的檢討。</li>
+            <li><strong>抗壓能力：</strong>壓力最大時的狀況、臨時緊急任務的處理、平常紓壓方式。</li>
+            <li class="sub-note">評估：例子真實度、面對壓力的行動、是否有調適方式。</li>
+          </ul>
+        </details>
+        <details>
+          <summary>四、面試表現（應對能力／職業態度／儀表儀態）</summary>
+          <ul>
+            <li><strong>應對能力：</strong>臨時調部門、流程突發、面對激動同仁或客戶的第一步。</li>
+            <li class="sub-note">評估：抓重點速度、情境作法、臨時變動是否慌亂。</li>
+            <li><strong>職業態度：</strong>理想工作環境、面對不喜歡但必須做的任務的心態。</li>
+            <li class="sub-note">評估：穩定度、責任感、對雜事的態度。</li>
+            <li><strong>儀表儀態：</strong>對專業形象的看法、辦公室禮儀重視的規範。</li>
+            <li class="sub-note">評估：服裝與公司文化、禮貌與專注度、基本禮儀。</li>
+          </ul>
+        </details>
       </div>
     </div>
 
@@ -524,7 +628,7 @@
               <option>10</option>
             </select>
           </div>
-          <small class="helper">面對情境題或實際問題時的分析與解法</small>
+          <small class="helper">分析與解決問題、落實方案與驗證效果</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -546,7 +650,7 @@
               <option>10</option>
             </select>
           </div>
-          <small class="helper">新知學習速度、主動性與應用能力</small>
+          <small class="helper">學習新知與自我精進的意願與方法</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -576,7 +680,7 @@
               <option>10</option>
             </select>
           </div>
-          <small class="helper">表達清楚度、傾聽及雙向溝通效果</small>
+          <small class="helper">資訊表達、傾聽與向上溝通的效率</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -598,7 +702,7 @@
               <option>10</option>
             </select>
           </div>
-          <small class="helper">與同事協作、分享與支援程度</small>
+          <small class="helper">團隊分工協作、支援同仁與協調能力</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -620,7 +724,7 @@
               <option>10</option>
             </select>
           </div>
-          <small class="helper">優先順序安排、準時與交付狀況</small>
+          <small class="helper">排程能力、優先順序判斷與交付準時度</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -642,7 +746,7 @@
               <option>10</option>
             </select>
           </div>
-          <small class="helper">面對壓力、突發狀況時的穩定度</small>
+          <small class="helper">面對壓力時的穩定度與調適方法</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -670,7 +774,7 @@
               <option>4</option><option>5</option>
             </select>
           </div>
-          <small class="helper">對問題反應速度、思路清晰度</small>
+          <small class="helper">臨場反應、聚焦重點的能力</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -690,7 +794,7 @@
               <option>4</option><option>5</option>
             </select>
           </div>
-          <small class="helper">對工作熱忱、穩定度及價值觀</small>
+          <small class="helper">責任感、穩定度與對工作的認真程度</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -710,7 +814,7 @@
               <option>4</option><option>5</option>
             </select>
           </div>
-          <small class="helper">穿著、禮貌及整體專業形象</small>
+          <small class="helper">穿著、禮貌與專業形象</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -734,7 +838,7 @@
       <div style="margin-top:12px;">
         <div class="field">
           <label for="overall_comment">總評 — 綜合評價及建議</label>
-            <textarea id="overall_comment" placeholder="例如：整體專業能力佳，建議錄用／可列入備選名單／暫不適合該職位等。"></textarea>
+          <textarea id="overall_comment" placeholder="例如：整體專業能力佳，建議錄用／可列入備選名單／暫不適合該職位等。"></textarea>
         </div>
       </div>
 
@@ -744,6 +848,114 @@
           <input type="text" id="signature" />
         </div>
       </div>
+    </div>
+
+    <!-- 補充資訊與提問 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">候選人自述與補充資訊</div>
+        <div class="section-meta">放在最後，方便整理面談後的補充紀錄</div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="self_strength">候選人自述的優點</label>
+          <textarea id="self_strength" placeholder="例如：擅長跨部門溝通、能快速拆解需求、喜歡學習新工具……"></textarea>
+        </div>
+        <div class="field">
+          <label for="self_weakness">候選人自述的待改進處</label>
+          <textarea id="self_weakness" placeholder="例如：希望加強數據分析、需要更多大型專案經驗……"></textarea>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label>是否有使用 AI 軟體？</label>
+          <div class="score-select-row" style="gap:10px;">
+            <label class="chip"><input type="radio" name="ai_usage" value="yes" /> 有</label>
+            <label class="chip"><input type="radio" name="ai_usage" value="no" /> 沒有</label>
+            <span class="muted">若勾選「有」，可勾選常用工具</span>
+          </div>
+          <div id="aiToolsWrapper" class="ai-tools-grid hidden">
+            <label class="chip"><input type="checkbox" class="ai-tool" value="ChatGPT" /> ChatGPT</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Adobe" /> Adobe</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Canva" /> Canva</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Gemini" /> Gemini</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Notion AI" /> Notion AI</label>
+            <label class="chip"><input type="checkbox" class="ai-tool" value="Microsoft Copilot" /> Microsoft Copilot</label>
+            <div class="field" style="grid-column: 1 / -1; margin-top:4px;">
+              <label for="ai_other" class="muted">其他常用 AI（可輸入）</label>
+              <input type="text" id="ai_other" placeholder="請填寫其他工具名稱或使用情境" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="disc_type">DISC 人格測驗結果</label>
+          <select id="disc_type">
+            <option value="">— 請選擇 —</option>
+            <option value="D">支配型（D）- 老虎</option>
+            <option value="I">影響型（I）- 孔雀</option>
+            <option value="S">穩健型（S）- 無尾熊</option>
+            <option value="C">謹慎型（C）- 貓頭鷹</option>
+          </select>
+          <div id="discResult" class="disc-box">
+            <div class="disc-title">尚未選擇</div>
+            <div class="muted">選擇 DISC 類型後，系統會自動帶出人格特質與適合的職場情境，方便記錄在 Word。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header" style="padding-top:8px;">
+        <div class="section-title">補充資料</div>
+        <div class="section-meta">寵物照護與備註</div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label>是否有養寵物？</label>
+          <div class="pet-options">
+            <label class="tag-pill"><input type="radio" name="pet_status" value="yes" /> 有</label>
+            <label class="tag-pill"><input type="radio" name="pet_status" value="no" /> 沒有</label>
+            <label class="tag-pill"><input type="radio" name="pet_status" value="past" /> 以前養過</label>
+          </div>
+          <small class="helper">選「有」或「以前養過」時，請勾選類型並填寫照護資訊。</small>
+        </div>
+        <div class="field hidden" id="petTypesWrapper">
+          <label>寵物類型（可複選）</label>
+          <div class="inline-chips" id="petTypes">
+            <label class="chip"><input type="checkbox" value="狗" /> 狗</label>
+            <label class="chip"><input type="checkbox" value="貓" /> 貓</label>
+            <label class="chip"><input type="checkbox" value="非犬貓" /> 非犬貓</label>
+          </div>
+        </div>
+      </div>
+      <div class="grid hidden" id="petCareWrapper">
+        <div class="field">
+          <label>是否為主要照顧者？</label>
+          <div class="radio-row">
+            <label class="chip"><input type="radio" name="pet_caretaker" value="yes" /> 是</label>
+            <label class="chip"><input type="radio" name="pet_caretaker" value="no" /> 否</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>是否為飼料挑選者？</label>
+          <div class="radio-row">
+            <label class="chip"><input type="radio" name="pet_feeder" value="yes" /> 是</label>
+            <label class="chip"><input type="radio" name="pet_feeder" value="no" /> 否</label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pet_note">寵物相關備註</label>
+        <textarea id="pet_note" placeholder="填寫飼養經驗、照護時間安排、食物挑選考量等"></textarea>
+      </div>
+
+      <div class="section-header" style="padding-top:8px;">
+        <div class="section-title">面試者提問</div>
+        <div class="section-meta">可持續新增，讓面試官記錄回答與想法</div>
+        <button type="button" class="btn-ghost" id="addQuestion">＋ 新增提問</button>
+      </div>
+      <div class="notes-list" id="questionList"></div>
     </div>
 
     <!-- 操作按鈕 -->
@@ -767,6 +979,13 @@
     const aiOtherInput = document.getElementById("ai_other");
     const discSelect = document.getElementById("disc_type");
     const discResult = document.getElementById("discResult");
+    const suggestionContent = document.getElementById("suggestionContent");
+    const toggleSuggestionsBtn = document.getElementById("toggleSuggestions");
+    const petStatusInputs = document.querySelectorAll("input[name='pet_status']");
+    const petTypesWrapper = document.getElementById("petTypesWrapper");
+    const petCareWrapper = document.getElementById("petCareWrapper");
+    const questionList = document.getElementById("questionList");
+    const addQuestionBtn = document.getElementById("addQuestion");
 
     const discDescriptions = {
       D: {
@@ -856,23 +1075,64 @@
 
     discSelect.addEventListener("change", updateDiscInfo);
 
+    function toggleSuggestionContent() {
+      suggestionContent.classList.toggle("hidden");
+    }
+
+    toggleSuggestionsBtn.addEventListener("click", toggleSuggestionContent);
+
+    function updatePetVisibility() {
+      const status = (document.querySelector("input[name='pet_status']:checked") || {})
+        .value;
+      const shouldShow = status === "yes" || status === "past";
+      petTypesWrapper.classList.toggle("hidden", !shouldShow);
+      petCareWrapper.classList.toggle("hidden", !shouldShow);
+      if (!shouldShow) {
+        document
+          .querySelectorAll("#petTypes input[type='checkbox']")
+          .forEach((cb) => (cb.checked = false));
+        document
+          .querySelectorAll("input[name='pet_caretaker']")
+          .forEach((r) => (r.checked = false));
+        document
+          .querySelectorAll("input[name='pet_feeder']")
+          .forEach((r) => (r.checked = false));
+      }
+    }
+
+    petStatusInputs.forEach((input) =>
+      input.addEventListener("change", updatePetVisibility)
+    );
+
+    function addQuestionNote(initialValue = "") {
+      const note = document.createElement("div");
+      note.className = "note-card";
+      const textarea = document.createElement("textarea");
+      textarea.placeholder = "輸入提問內容與面試官筆記";
+      textarea.value = initialValue;
+      note.appendChild(textarea);
+      questionList.appendChild(note);
+    }
+
+    addQuestionBtn.addEventListener("click", () => addQuestionNote());
+    addQuestionNote();
+
     function resetForm() {
       if (!confirm("確定要清空整份評分表嗎？")) return;
       document.querySelectorAll("input, textarea, select").forEach((el) => {
-        if (el.tagName === "SELECT") {
-          el.value = "";
+        if (el.type === "radio" || el.type === "checkbox") {
+          el.checked = false;
         } else {
           el.value = "";
         }
       });
-      document
-        .querySelectorAll("input[name='ai_usage']")
-        .forEach((radio) => (radio.checked = false));
-      aiToolCheckboxes.forEach((cb) => (cb.checked = false));
-      aiOtherInput.value = "";
       updateTotalScore();
       updateAiToolsVisibility();
       updateDiscInfo();
+      updatePetVisibility();
+      suggestionContent.classList.add("hidden");
+      questionList.innerHTML = "";
+      addQuestionNote();
     }
 
     function safeText(text) {
@@ -885,6 +1145,20 @@
 
     function formatMultiline(text) {
       return safeText(text || "").replace(/\n/g, "<br>");
+    }
+
+    function getInterviewQuestions() {
+      return Array.from(questionList.querySelectorAll("textarea"))
+        .map((ta) => ta.value.trim())
+        .filter((v) => v);
+    }
+
+    function getPetTypes() {
+      return Array.from(
+        document.querySelectorAll("#petTypes input[type='checkbox']")
+      )
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value);
     }
 
     function exportToWord() {
@@ -933,129 +1207,69 @@
         perf_attitude_comment: document.getElementById("perf_attitude_comment").value,
         perf_manner_score: document.getElementById("perf_manner_score").value,
         perf_manner_comment: document.getElementById("perf_manner_comment").value,
-        // 總評與簽名
-        totalScore: totalScoreEl.textContent === "—" ? "" : totalScoreEl.textContent,
+        // 總評
         overall_comment: document.getElementById("overall_comment").value,
-        signature: document.getElementById("signature").value
+        signature: document.getElementById("signature").value,
+        totalScore: totalScoreEl.textContent,
+        // 補充資料
+        pet_status:
+          (document.querySelector("input[name='pet_status']:checked") || {})
+            .value || "",
+        pet_types: getPetTypes(),
+        pet_caretaker:
+          (document.querySelector("input[name='pet_caretaker']:checked") || {})
+            .value || "",
+        pet_feeder:
+          (document.querySelector("input[name='pet_feeder']:checked") || {})
+            .value || "",
+        pet_note: document.getElementById("pet_note").value,
+        interview_questions: getInterviewQuestions()
       };
 
-      const discInfo = discDescriptions[data.disc_type] || {};
-      const aiUsageLabel =
-        data.ai_usage === "yes" ? "有" : data.ai_usage === "no" ? "沒有" : "";
-      const aiToolsDisplay =
-        data.ai_tools && data.ai_tools.length > 0
-          ? data.ai_tools.join("、")
-          : data.ai_usage === "yes"
-            ? "已使用，但未勾選具體工具"
-            : "";
+      const aiToolsText = data.ai_usage === "yes" ? data.ai_tools.join("、") : "未使用";
 
-      // 把日期轉成比較好看的格式（YYYY-MM-DD -> YYYY/MM/DD）
-      let dateDisplay = data.interviewDate;
-      if (dateDisplay && dateDisplay.indexOf("-") > -1) {
-        const parts = dateDisplay.split("-");
-        dateDisplay = parts[0] + "/" + parts[1] + "/" + parts[2];
-      }
+      const petStatusMap = {
+        yes: "有",
+        no: "沒有",
+        past: "以前養過"
+      };
+
+      const petStatusText = petStatusMap[data.pet_status] || "未填寫";
+      const petTypesText = data.pet_types.length
+        ? data.pet_types.join("、")
+        : "—";
+      const petCaretakerText = data.pet_caretaker === "yes" ? "是" : data.pet_caretaker === "no" ? "否" : "未填寫";
+      const petFeederText = data.pet_feeder === "yes" ? "是" : data.pet_feeder === "no" ? "否" : "未填寫";
+      const questionListHtml = data.interview_questions.length
+        ? `<ul>${data.interview_questions
+            .map((q) => `<li>${formatMultiline(q)}</li>`)
+            .join("")}</ul>`
+        : "<div class=\"muted\">未填寫</div>";
 
       const htmlContent = `
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>面試評分表</title>
 <style>
-body {
-  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
-  font-size: 12pt;
-  line-height: 1.6;
-}
- table {
-   width: 100%;
-   border-collapse: collapse;
-   table-layout: fixed;
- }
- td {
-   padding: 4px 6px;
-   vertical-align: top;
-   word-wrap: break-word;
-   word-break: break-all;
-   white-space: pre-wrap;
- }
-.section-title {
-  font-weight: bold;
-  margin-top: 8px;
-  margin-bottom: 4px;
-}
-.hr-line {
-  border-bottom: 1px solid #000;
-  margin: 4px 0 6px 0;
-}
-.signature-line {
-  margin-top: 24px;
-}
-.box-line {
-  border-top: 1px solid #000;
-  margin: 12px 0;
-}
-.score-cell {
-  width: 120px;
-}
-.comment-cell {
-  width: auto;
-}
-th, td.border {
-  border: 1px solid #000;
-}
-th {
-  background: #f3f4f6;
-}
-.tag {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #eef2ff;
-  border: 1px solid #e0e7ff;
-}
+  body { font-family: "Microsoft JhengHei", Arial, sans-serif; line-height: 1.6; color: #111827; }
+  h2 { margin-top: 24px; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  th, td { padding: 8px 10px; text-align: left; }
+  .border { border: 1px solid #d1d5db; }
+  .score-cell { width: 80px; text-align: center; }
+  .box-line { border-top: 1px solid #e5e7eb; margin: 12px 0; }
+  .section-title { font-size: 16px; font-weight: 700; margin: 14px 0 6px; }
+  .muted { color: #6b7280; }
+  .signature-line { margin-top: 26px; }
 </style>
 </head>
 <body>
-  <h2 style="text-align:center;">面試評分表</h2>
-
-  <table style="margin-bottom:4px;">
-    <tr>
-      <td>應聘者姓名：${safeText(data.candidateName)}</td>
-      <td>面試職位：${safeText(data.position)}</td>
-    </tr>
-    <tr>
-      <td>面試日期：${safeText(dateDisplay)}</td>
-      <td>面試官姓名：${safeText(data.interviewer)}</td>
-    </tr>
-  </table>
-
-  <div class="section-title">候選人自述與補充資訊</div>
-  <table>
-    <tr>
-      <th class="border">自述優點</th>
-      <td class="border">${formatMultiline(data.self_strength)}</td>
-    </tr>
-    <tr>
-      <th class="border">自述待改進處</th>
-      <td class="border">${formatMultiline(data.self_weakness)}</td>
-    </tr>
-    <tr>
-      <th class="border">AI 軟體使用</th>
-      <td class="border">${safeText(aiUsageLabel)}${aiToolsDisplay ? `｜工具：${safeText(aiToolsDisplay)}` : ""}</td>
-    </tr>
-    <tr>
-      <th class="border">DISC 人格</th>
-      <td class="border">
-        ${safeText(discInfo.title || "")}
-        ${discInfo.traits ? `<div>特質：${safeText(discInfo.traits)}</div>` : ""}
-        ${discInfo.jobs ? `<div>適合工作：${safeText(discInfo.jobs)}</div>` : ""}
-      </td>
-    </tr>
-  </table>
-
-  <div class="box-line"></div>
+  <h2>面試評分表</h2>
+  <p><strong>應聘者姓名：</strong> ${safeText(data.candidateName)}<br>
+     <strong>面試職位：</strong> ${safeText(data.position)}<br>
+     <strong>面試日期：</strong> ${safeText(data.interviewDate)}<br>
+     <strong>面試官：</strong> ${safeText(data.interviewer)}</p>
 
   <div class="section-title">一、基本信息（每項滿分 5 分）</div>
   <table>
@@ -1165,6 +1379,22 @@ th {
   <p><strong>總評 — 綜合評價及建議：</strong></p>
   <p>${formatMultiline(data.overall_comment)}</p>
 
+  <div class="section-title">候選人自述與補充資訊</div>
+  <p><strong>自述的優點：</strong><br>${formatMultiline(data.self_strength)}</p>
+  <p><strong>自述的待改進處：</strong><br>${formatMultiline(data.self_weakness)}</p>
+  <p><strong>AI 使用情況：</strong> ${safeText(aiToolsText)}</p>
+  <p><strong>DISC 類型：</strong> ${safeText(data.disc_type || "未填寫")}</p>
+
+  <div class="section-title">寵物與照護資訊</div>
+  <p><strong>是否有養寵物：</strong> ${safeText(petStatusText)}</p>
+  <p><strong>寵物類型：</strong> ${safeText(petTypesText)}</p>
+  <p><strong>是否為主要照顧者：</strong> ${safeText(petCaretakerText)}</p>
+  <p><strong>是否為飼料挑選者：</strong> ${safeText(petFeederText)}</p>
+  <p><strong>寵物備註：</strong><br>${formatMultiline(data.pet_note)}</p>
+
+  <div class="section-title">面試者提問</div>
+  ${questionListHtml}
+
   <div class="box-line"></div>
 
   <p class="signature-line">
@@ -1200,6 +1430,7 @@ th {
     updateTotalScore();
     updateAiToolsVisibility();
     updateDiscInfo();
+    updatePetVisibility();
   </script>
 </body>
 </html>
