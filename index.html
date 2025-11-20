@@ -275,7 +275,7 @@
       display: grid;
       grid-template-columns: repeat(10, minmax(26px, 1fr));
       column-gap: 7px;
-      width: 100%;
+      width: clamp(180px, 50%, 360px);
       max-width: 360px;
     }
 
@@ -424,7 +424,7 @@
     .modal-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       padding: 18px 20px 12px;
       border-bottom: 1px solid #f1f5f9;
       gap: 12px;
@@ -461,6 +461,11 @@
       height: 34px;
       font-size: 18px;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      box-shadow: 0 6px 14px rgba(79, 70, 229, 0.2);
     }
 
     .modal-section ul {
@@ -2409,182 +2414,192 @@
   </table>`
         : "";
 
+      
       const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <style>
-  body { font-family: "Microsoft JhengHei", Arial, sans-serif; line-height: 1.6; color: #111827; }
-  h2 { margin-top: 24px; margin-bottom: 8px; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
-  th, td { padding: 8px 10px; text-align: left; }
-  .border { border: 1px solid #d1d5db; }
-  .score-cell { width: 80px; text-align: center; }
-  .box-line { border-top: 1px solid #e5e7eb; margin: 12px 0; }
-  .section-title { font-size: 16px; font-weight: 700; margin: 14px 0 6px; }
-  .muted { color: #6b7280; }
-  .signature-line { margin-top: 26px; }
+  :root { --primary: #4338ca; --muted: #6b7280; --border: #e5e7eb; --bg: #f6f8fc; --card: #ffffff; }
+  body { font-family: "Microsoft JhengHei", "Segoe UI", Arial, sans-serif; line-height: 1.68; color: #0f172a; background: var(--bg); padding: 32px; }
+  .doc-shell { max-width: 900px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12); padding: 28px 30px; }
+  h1 { margin: 0 0 6px; font-size: 24px; letter-spacing: 0.04em; color: var(--primary); }
+  .eyebrow { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6366f1; margin-bottom: 4px; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; }
+  .info-item strong { color: #111827; }
+  .section-title { margin: 26px 0 10px; font-size: 17px; color: #111827; font-weight: 800; position: relative; }
+  .section-title:after { content: ""; position: absolute; left: 0; bottom: -6px; width: 52px; height: 3px; background: linear-gradient(90deg, #a5b4fc, #6366f1); border-radius: 999px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 4px; }
+  th, td { padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
+  .border { border: 1px solid var(--border); }
+  th { background: #eef2ff; color: #312e81; font-weight: 800; }
+  tr:nth-child(even) td { background: #f9fafb; }
+  .score-cell { width: 90px; text-align: center; font-weight: 700; color: #1d4ed8; }
+  .muted { color: var(--muted); }
+  .box-line { border-top: 1px dashed var(--border); margin: 18px 0; }
+  .badge { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #e0f2fe; color: #0ea5e9; font-size: 12px; margin-right: 6px; }
+  .notes p { margin: 6px 0; }
+  .signature { margin-top: 24px; font-weight: 700; }
 </style>
 </head>
 <body>
-  <h2>面試評分表</h2>
-  <p><strong>應聘者姓名：</strong> ${safeText(data.candidateName)}<br>
-     <strong>面試職位：</strong> ${safeText(data.position)}<br>
-     <strong>應徵職務類型：</strong> ${safeText(roleTypeText)}<br>
-     <strong>面試日期：</strong> ${safeText(data.interviewDate)}<br>
-     <strong>面試官：</strong> ${safeText(data.interviewer)}<br>
-     <strong>面試參與者：</strong> ${formatMultiline(data.interviewParticipants || "未填寫")}</p>
+  <div class="doc-shell">
+    <div class="eyebrow">INTERVIEW REPORT</div>
+    <h1>面試評分表</h1>
+    <div class="info-grid">
+      <div class="info-item"><strong>應聘者姓名：</strong> ${safeText(data.candidateName) || "未填寫"}</div>
+      <div class="info-item"><strong>面試職位：</strong> ${safeText(data.position) || "未填寫"}</div>
+      <div class="info-item"><strong>應徵職務類型：</strong> ${safeText(roleTypeText)}</div>
+      <div class="info-item"><strong>面試日期：</strong> ${safeText(data.interviewDate) || "未填寫"}</div>
+      <div class="info-item"><strong>面試官：</strong> ${safeText(data.interviewer) || "未填寫"}</div>
+      <div class="info-item"><strong>面試參與者：</strong> ${formatMultiline(data.interviewParticipants || "未填寫")}</div>
+    </div>
 
-  <div class="section-title">一、基本信息（每項滿分 5 分）</div>
-  <table>
-    <tr>
-      <th class="border">項目</th>
-      <th class="border">評分</th>
-      <th class="border">評語</th>
-    </tr>
-    <tr>
-      <td class="border">履歷完整度</td>
-      <td class="border score-cell">${safeText(data.basic_resume_score)}</td>
-      <td class="border">${formatMultiline(data.basic_resume_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">教育背景</td>
-      <td class="border score-cell">${safeText(data.basic_edu_score)}</td>
-      <td class="border">${formatMultiline(data.basic_edu_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">工作經歷</td>
-      <td class="border score-cell">${safeText(data.basic_exp_score)}</td>
-      <td class="border">${formatMultiline(data.basic_exp_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">工作穩定性（含離職原因）</td>
-      <td class="border score-cell">${safeText(data.basic_stability_score)}</td>
-      <td class="border">${formatMultiline(data.basic_stability_comment)}</td>
-    </tr>
-  </table>
+    <div class="section-title">一、基本信息（每項滿分 5 分）</div>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th>評分</th>
+        <th>評語</th>
+      </tr>
+      <tr>
+        <td>履歷完整度</td>
+        <td class="score-cell">${safeText(data.basic_resume_score)}</td>
+        <td>${formatMultiline(data.basic_resume_comment)}</td>
+      </tr>
+      <tr>
+        <td>教育背景</td>
+        <td class="score-cell">${safeText(data.basic_edu_score)}</td>
+        <td>${formatMultiline(data.basic_edu_comment)}</td>
+      </tr>
+      <tr>
+        <td>工作經歷</td>
+        <td class="score-cell">${safeText(data.basic_exp_score)}</td>
+        <td>${formatMultiline(data.basic_exp_comment)}</td>
+      </tr>
+      <tr>
+        <td>工作穩定性（含離職原因）</td>
+        <td class="score-cell">${safeText(data.basic_stability_score)}</td>
+        <td>${formatMultiline(data.basic_stability_comment)}</td>
+      </tr>
+    </table>
 
-  <div class="section-title">二、專業能力（每項滿分 10 分）</div>
-  <table>
-    <tr>
-      <th class="border">項目</th>
-      <th class="border">評分</th>
-      <th class="border">評語</th>
-    </tr>
-    <tr>
-      <td class="border">技術技能</td>
-      <td class="border score-cell">${safeText(data.pro_tech_score)}</td>
-      <td class="border">${formatMultiline(data.pro_tech_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">問題解決能力</td>
-      <td class="border score-cell">${safeText(data.pro_problem_score)}</td>
-      <td class="border">${formatMultiline(data.pro_problem_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">學習能力</td>
-      <td class="border score-cell">${safeText(data.pro_learning_score)}</td>
-      <td class="border">${formatMultiline(data.pro_learning_comment)}</td>
-    </tr>
-  </table>
+    <div class="section-title">二、專業能力（每項滿分 10 分）</div>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th>評分</th>
+        <th>評語</th>
+      </tr>
+      <tr>
+        <td>技術技能</td>
+        <td class="score-cell">${safeText(data.pro_tech_score)}</td>
+        <td>${formatMultiline(data.pro_tech_comment)}</td>
+      </tr>
+      <tr>
+        <td>問題解決能力</td>
+        <td class="score-cell">${safeText(data.pro_problem_score)}</td>
+        <td>${formatMultiline(data.pro_problem_comment)}</td>
+      </tr>
+      <tr>
+        <td>學習能力</td>
+        <td class="score-cell">${safeText(data.pro_learning_score)}</td>
+        <td>${formatMultiline(data.pro_learning_comment)}</td>
+      </tr>
+    </table>
 
-  ${managementSectionHtml}
+    ${managementSectionHtml}
 
-  <div class="section-title">三、軟技能（每項滿分 10 分）</div>
-  <table>
-    <tr>
-      <th class="border">項目</th>
-      <th class="border">評分</th>
-      <th class="border">評語</th>
-    </tr>
-    <tr>
-      <td class="border">溝通能力</td>
-      <td class="border score-cell">${safeText(data.soft_comm_score)}</td>
-      <td class="border">${formatMultiline(data.soft_comm_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">團隊合作</td>
-      <td class="border score-cell">${safeText(data.soft_team_score)}</td>
-      <td class="border">${formatMultiline(data.soft_team_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">時間管理</td>
-      <td class="border score-cell">${safeText(data.soft_time_score)}</td>
-      <td class="border">${formatMultiline(data.soft_time_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">抗壓能力</td>
-      <td class="border score-cell">${safeText(data.soft_stress_score)}</td>
-      <td class="border">${formatMultiline(data.soft_stress_comment)}</td>
-    </tr>
-  </table>
+    <div class="section-title">三、軟技能（每項滿分 10 分）</div>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th>評分</th>
+        <th>評語</th>
+      </tr>
+      <tr>
+        <td>溝通能力</td>
+        <td class="score-cell">${safeText(data.soft_comm_score)}</td>
+        <td>${formatMultiline(data.soft_comm_comment)}</td>
+      </tr>
+      <tr>
+        <td>團隊合作</td>
+        <td class="score-cell">${safeText(data.soft_team_score)}</td>
+        <td>${formatMultiline(data.soft_team_comment)}</td>
+      </tr>
+      <tr>
+        <td>時間管理</td>
+        <td class="score-cell">${safeText(data.soft_time_score)}</td>
+        <td>${formatMultiline(data.soft_time_comment)}</td>
+      </tr>
+      <tr>
+        <td>抗壓能力</td>
+        <td class="score-cell">${safeText(data.soft_stress_score)}</td>
+        <td>${formatMultiline(data.soft_stress_comment)}</td>
+      </tr>
+    </table>
 
-  <div class="section-title">四、面試表現（每項滿分 5 分）</div>
-  <table>
-    <tr>
-      <th class="border">項目</th>
-      <th class="border">評分</th>
-      <th class="border">評語</th>
-    </tr>
-    <tr>
-      <td class="border">應對能力</td>
-      <td class="border score-cell">${safeText(data.perf_response_score)}</td>
-      <td class="border">${formatMultiline(data.perf_response_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">職業態度</td>
-      <td class="border score-cell">${safeText(data.perf_attitude_score)}</td>
-      <td class="border">${formatMultiline(data.perf_attitude_comment)}</td>
-    </tr>
-    <tr>
-      <td class="border">儀表儀態</td>
-      <td class="border score-cell">${safeText(data.perf_manner_score)}</td>
-      <td class="border">${formatMultiline(data.perf_manner_comment)}</td>
-    </tr>
-  </table>
+    <div class="section-title">四、面試表現（每項滿分 5 分）</div>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th>評分</th>
+        <th>評語</th>
+      </tr>
+      <tr>
+        <td>應對能力</td>
+        <td class="score-cell">${safeText(data.perf_response_score)}</td>
+        <td>${formatMultiline(data.perf_response_comment)}</td>
+      </tr>
+      <tr>
+        <td>職業態度</td>
+        <td class="score-cell">${safeText(data.perf_attitude_score)}</td>
+        <td>${formatMultiline(data.perf_attitude_comment)}</td>
+      </tr>
+      <tr>
+        <td>儀表儀態</td>
+        <td class="score-cell">${safeText(data.perf_manner_score)}</td>
+        <td>${formatMultiline(data.perf_manner_comment)}</td>
+      </tr>
+    </table>
 
-  <div class="box-line"></div>
+    <div class="box-line"></div>
+    <p><span class="badge">總分</span><strong>滿分 100 分：</strong> ${safeText(data.totalScore)}</p>
+    <p><strong>總評 — 綜合評價及建議：</strong></p>
+    <div class="notes">${formatMultiline(data.overall_comment)}</div>
 
-  <p><strong>總分（滿分 100 分）：</strong> ${safeText(data.totalScore)}</p>
+    <div class="section-title">候選人自述與補充資訊</div>
+    <p><strong>投遞動機與品牌理解：</strong><br>${formatMultiline(data.company_motivation)}</p>
+    <p><strong>最有成就感的事情與經驗：</strong><br>${formatMultiline(data.achievement_note)}</p>
+    <p><strong>遇到的最大挫折與解法：</strong><br>${formatMultiline(data.challenge_note)}</p>
+    <p><strong>自述的優點 #1：</strong><br>${formatMultiline(data.strength_primary)}</p>
+    <p><strong>自述的優點 #2：</strong><br>${formatMultiline(data.strength_secondary)}</p>
+    <p><strong>自述的缺點 #1：</strong><br>${formatMultiline(data.weakness_primary)}</p>
+    <p><strong>自述的缺點 #2：</strong><br>${formatMultiline(data.weakness_secondary)}</p>
+    <p><strong>AI 使用情況：</strong> ${safeText(aiToolsText)}</p>
+    <p><strong>ERP 使用經驗：</strong> ${safeText(erpStatusText)}</p>
+    <p><strong>使用過的 ERP 系統：</strong> ${safeText(erpSystemsText)}</p>
+    <p><strong>DISC 類型：</strong> ${safeText(data.disc_type || "未填寫")}</p>
 
-  <p><strong>總評 — 綜合評價及建議：</strong></p>
-  <p>${formatMultiline(data.overall_comment)}</p>
+    <div class="section-title">補充資料（通勤與寵物）</div>
+    <p><strong>是否有養寵物：</strong> ${safeText(petStatusText)}</p>
+    <p><strong>寵物類型：</strong> ${safeText(petTypesText)}</p>
+    <p><strong>是否為飼料挑選者：</strong> ${safeText(petFeederText)}</p>
+    <p><strong>寵物備註：</strong><br>${formatMultiline(data.pet_note)}</p>
+    <p><strong>預計通勤時間：</strong> ${safeText(data.commute_time || "未填寫")}</p>
 
-  <div class="section-title">候選人自述與補充資訊</div>
-  <p><strong>投遞動機與品牌理解：</strong><br>${formatMultiline(data.company_motivation)}</p>
-  <p><strong>最有成就感的事情與經驗：</strong><br>${formatMultiline(data.achievement_note)}</p>
-  <p><strong>遇到的最大挫折與解法：</strong><br>${formatMultiline(data.challenge_note)}</p>
-  <p><strong>自述的優點 #1：</strong><br>${formatMultiline(data.strength_primary)}</p>
-  <p><strong>自述的優點 #2：</strong><br>${formatMultiline(data.strength_secondary)}</p>
-  <p><strong>自述的缺點 #1：</strong><br>${formatMultiline(data.weakness_primary)}</p>
-  <p><strong>自述的缺點 #2：</strong><br>${formatMultiline(data.weakness_secondary)}</p>
-  <p><strong>AI 使用情況：</strong> ${safeText(aiToolsText)}</p>
-  <p><strong>ERP 使用經驗：</strong> ${safeText(erpStatusText)}</p>
-  <p><strong>使用過的 ERP 系統：</strong> ${safeText(erpSystemsText)}</p>
-  <p><strong>DISC 類型：</strong> ${safeText(data.disc_type || "未填寫")}</p>
+    <div class="section-title">面試者提問</div>
+    ${questionListHtml}
 
-  <div class="section-title">補充資料（通勤與寵物）</div>
-  <p><strong>是否有養寵物：</strong> ${safeText(petStatusText)}</p>
-  <p><strong>寵物類型：</strong> ${safeText(petTypesText)}</p>
-  <p><strong>是否為飼料挑選者：</strong> ${safeText(petFeederText)}</p>
-  <p><strong>寵物備註：</strong><br>${formatMultiline(data.pet_note)}</p>
-  <p><strong>預計通勤時間：</strong> ${safeText(data.commute_time || "未填寫")}</p>
-
-  <div class="section-title">面試者提問</div>
-  ${questionListHtml}
-
-  <div class="box-line"></div>
-
-  <p class="signature-line">
-    面試官簽名： __________________________
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    （姓名：${safeText(data.signature)}）
-  </p>
+    <div class="box-line"></div>
+    <p class="signature">面試官簽名： __________________________　（姓名：${safeText(data.signature)}）</p>
+  </div>
 
 </body>
 </html>
       `;
+
 
       const blob = new Blob(["\ufeff", htmlContent], {
         type: "application/msword;charset=utf-8"
