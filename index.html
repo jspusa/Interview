@@ -209,8 +209,11 @@
 
     .item-row {
       display: grid;
-      grid-template-columns: minmax(140px, 160px) 160px 1fr;
-      gap: 10px;
+      grid-template-columns: minmax(150px, 180px) 1fr;
+      grid-template-areas:
+        "label score"
+        "label comment";
+      gap: 10px 14px;
       align-items: flex-start;
       padding: 8px 0;
       border-bottom: 1px dashed #f3f4f6;
@@ -221,6 +224,7 @@
     }
 
     .item-label {
+      grid-area: label;
       font-size: 13px;
       font-weight: 700;
       color: #374151;
@@ -228,6 +232,7 @@
     }
 
     .score-wrapper {
+      grid-area: score;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -252,7 +257,10 @@
       display: flex;
       gap: 6px;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      width: 100%;
+      justify-content: space-between;
     }
 
     .star {
@@ -273,24 +281,23 @@
     }
 
     .star-labels {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       font-size: 12px;
       color: #475569;
       gap: 8px;
       margin-top: 2px;
+      width: 100%;
+    }
+
+    .star-labels span:first-child {
+      text-align: left;
     }
 
     .star-labels .mid {
       text-align: center;
-      flex: 1;
       color: #334155;
       font-weight: 700;
-    }
-
-    .star-labels span:first-child,
-    .star-labels span:last-child {
-      flex: 1;
     }
 
     .star-labels span:last-child {
@@ -305,6 +312,13 @@
     .comment-label {
       font-size: 12px;
       color: #6b7280;
+    }
+
+    .comment-block {
+      grid-area: comment;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .label-top {
@@ -700,6 +714,10 @@
     @media (max-width: 960px) {
       .item-row {
         grid-template-columns: 1fr;
+        grid-template-areas:
+          "label"
+          "score"
+          "comment";
       }
 
       .item-label {
@@ -782,7 +800,7 @@
           <input type="hidden" id="basic_resume_score" class="score-input" data-field />
           <small class="helper">履歷是否清楚、完整呈現與職位相關資訊</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="basic_resume_comment"></textarea>
         </div>
@@ -800,7 +818,7 @@
           <input type="hidden" id="basic_edu_score" class="score-input" data-field />
           <small class="helper">學歷是否符合職位需求，專業相關性</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="basic_edu_comment"></textarea>
         </div>
@@ -818,7 +836,7 @@
           <input type="hidden" id="basic_exp_score" class="score-input" data-field />
           <small class="helper">過往經歷與職務內容之匹配程度</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="basic_exp_comment"></textarea>
         </div>
@@ -836,7 +854,7 @@
           <input type="hidden" id="basic_stability_score" class="score-input" data-field />
           <small class="helper">0 分：離職頻繁、理由不清晰；5 分：理由合理但轉職偏多；10 分：轉職少、理由清楚且職涯方向一致</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="basic_stability_comment"></textarea>
         </div>
@@ -864,7 +882,7 @@
           <input type="hidden" id="pro_tech_score" class="score-input" data-field />
           <small class="helper">專業技能熟練度、工具與系統使用能力</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="pro_tech_comment"></textarea>
         </div>
@@ -882,7 +900,7 @@
           <input type="hidden" id="pro_problem_score" class="score-input" data-field />
           <small class="helper">分析與解決問題、落實方案與驗證效果</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="pro_problem_comment"></textarea>
         </div>
@@ -900,7 +918,7 @@
           <input type="hidden" id="pro_learning_score" class="score-input" data-field />
           <small class="helper">學習新知與自我精進的意願與方法</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="pro_learning_comment"></textarea>
         </div>
@@ -929,7 +947,7 @@
           <input type="hidden" id="mgmt_team_score" class="score-input" data-field disabled />
           <small class="helper">分工、目標設定、授權與追蹤、面對團隊問題是否願意承擔調整</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="mgmt_team_comment" disabled></textarea>
         </div>
@@ -947,7 +965,7 @@
           <input type="hidden" id="mgmt_process_score" class="score-input" data-field disabled />
           <small class="helper">是否能將工作流程化、主動優化制度並推動落地</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="mgmt_process_comment" disabled></textarea>
         </div>
@@ -965,7 +983,7 @@
           <input type="hidden" id="mgmt_talent_score" class="score-input" data-field disabled />
           <small class="helper">培育人才的計畫與成效，以及跨部門協調與資源整合能力</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="mgmt_talent_comment" disabled></textarea>
         </div>
@@ -994,7 +1012,7 @@
           <input type="hidden" id="soft_comm_score" class="score-input" data-field />
           <small class="helper">資訊表達、傾聽與向上溝通的效率</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="soft_comm_comment"></textarea>
         </div>
@@ -1012,7 +1030,7 @@
           <input type="hidden" id="soft_team_score" class="score-input" data-field />
           <small class="helper">團隊分工協作、支援同仁與協調能力</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="soft_team_comment"></textarea>
         </div>
@@ -1030,7 +1048,7 @@
           <input type="hidden" id="soft_time_score" class="score-input" data-field />
           <small class="helper">排程能力、優先順序判斷與交付準時度</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="soft_time_comment"></textarea>
         </div>
@@ -1048,7 +1066,7 @@
           <input type="hidden" id="soft_stress_score" class="score-input" data-field />
           <small class="helper">面對壓力時的穩定度與調適方法</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="soft_stress_comment"></textarea>
         </div>
@@ -1076,7 +1094,7 @@
           <input type="hidden" id="perf_response_score" class="score-input" data-field />
           <small class="helper">臨場反應、聚焦重點的能力</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="perf_response_comment"></textarea>
         </div>
@@ -1094,7 +1112,7 @@
           <input type="hidden" id="perf_attitude_score" class="score-input" data-field />
           <small class="helper">責任感、穩定度與對工作的認真程度</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="perf_attitude_comment"></textarea>
         </div>
@@ -1112,7 +1130,7 @@
           <input type="hidden" id="perf_manner_score" class="score-input" data-field />
           <small class="helper">穿著、禮貌與專業形象</small>
         </div>
-        <div>
+        <div class="comment-block">
           <div class="comment-label">評語</div>
           <textarea id="perf_manner_comment"></textarea>
         </div>
@@ -1175,6 +1193,12 @@
           id="challenge_note"
           placeholder="請紀錄情境、候選人應對方式以及學到的經驗"
         ></textarea>
+      </div>
+
+      <div class="field">
+        <label for="commute_time">預計通勤時間（住家到辦公室）</label>
+        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
+        <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
       </div>
 
       <div class="grid">
@@ -1317,28 +1341,6 @@
         <button type="button" class="modal-close" data-close-modal>&times;</button>
       </div>
       <div class="modal-body">
-        <div class="score-standard-grid">
-          <div class="score-standard-block">
-            <div class="score-standard-title">0–10 分標準（基礎／面試表現）</div>
-            <ul class="score-standard-list">
-              <li><strong>0–2：</strong>明顯不足，需大量指導</li>
-              <li><strong>3–4：</strong>勉強符合，仍有缺口</li>
-              <li><strong>5–6：</strong>基本到位，可正常執行</li>
-              <li><strong>7–8：</strong>穩定表現，高於一般</li>
-              <li><strong>9–10：</strong>亮眼突出，能帶來加值</li>
-            </ul>
-          </div>
-          <div class="score-standard-block">
-            <div class="score-standard-title">0–10 分標準（專業／管理）</div>
-            <ul class="score-standard-list">
-              <li><strong>0–2：</strong>缺乏經驗或方法論</li>
-              <li><strong>3–4：</strong>尚在建立基礎，需緊密帶領</li>
-              <li><strong>5–6：</strong>能獨立完成常規工作</li>
-              <li><strong>7–8：</strong>可優化流程並協作</li>
-              <li><strong>9–10：</strong>策略性思考，能帶人或創新</li>
-            </ul>
-          </div>
-        </div>
         <table class="weight-table">
           <thead>
             <tr>
@@ -1680,7 +1682,7 @@
       },
       pro_problem_score: {
         left: "缺少解法",
-        middle: "拆解並落地",
+        middle: "拆解與落實",
         right: "主動優化"
       },
       pro_learning_score: {
@@ -1785,7 +1787,7 @@
 
       const starRow = document.createElement("div");
       starRow.className = "star-row";
-      for (let i = 0; i <= 10; i++) {
+      for (let i = 1; i <= 10; i++) {
         const star = document.createElement("span");
         star.className = "star";
         star.dataset.value = i;
