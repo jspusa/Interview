@@ -259,8 +259,8 @@
       align-items: center;
       flex-wrap: nowrap;
       overflow-x: auto;
-      width: 100%;
-      justify-content: space-between;
+      justify-content: flex-start;
+      width: fit-content;
     }
 
     .star {
@@ -852,7 +852,7 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="basic_stability_score"></div>
           <input type="hidden" id="basic_stability_score" class="score-input" data-field />
-          <small class="helper">0 分：離職頻繁、理由不清晰；5 分：理由合理但轉職偏多；10 分：轉職少、理由清楚且職涯方向一致</small>
+          <small class="helper">0 分：離職頻繁、理由不清晰；5 分：原因合理但轉職偏多；10 分：轉職少、理由清楚且職涯方向一致</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1195,12 +1195,6 @@
         ></textarea>
       </div>
 
-      <div class="field">
-        <label for="commute_time">預計通勤時間（住家到辦公室）</label>
-        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
-        <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
-      </div>
-
       <div class="grid">
         <div class="field">
           <label for="strength_primary">候選人自述的優點 #1</label>
@@ -1279,7 +1273,12 @@
 
       <div class="section-header" style="padding-top:8px;">
         <div class="section-title">補充資料</div>
-        <div class="section-meta">寵物照護與備註</div>
+        <div class="section-meta">通勤資訊與寵物照護備註</div>
+      </div>
+      <div class="field">
+        <label for="commute_time">預計通勤時間（住家到辦公室）</label>
+        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
+        <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
       </div>
       <div class="grid">
         <div class="field">
@@ -1817,9 +1816,11 @@
         const target = event.target.closest(".star");
         if (!target || input.disabled) return;
         const value = Number(target.dataset.value);
-        input.value = value;
+        const currentValue = Number(input.value);
+        const nextValue = currentValue === value ? "" : value;
+        input.value = nextValue;
         input.dispatchEvent(new Event("change", { bubbles: true }));
-        updateStars(value);
+        updateStars(nextValue === "" ? -1 : Number(nextValue));
       });
 
       input.addEventListener("change", () => {
@@ -2537,7 +2538,8 @@
   <p><strong>使用過的 ERP 系統：</strong> ${safeText(erpSystemsText)}</p>
   <p><strong>DISC 類型：</strong> ${safeText(data.disc_type || "未填寫")}</p>
 
-  <div class="section-title">寵物與照護資訊</div>
+  <div class="section-title">補充資料（通勤與寵物）</div>
+  <p><strong>預計通勤時間：</strong> ${safeText(data.commute_time || "未填寫")}</p>
   <p><strong>是否有養寵物：</strong> ${safeText(petStatusText)}</p>
   <p><strong>寵物類型：</strong> ${safeText(petTypesText)}</p>
   <p><strong>是否為飼料挑選者：</strong> ${safeText(petFeederText)}</p>
