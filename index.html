@@ -259,6 +259,8 @@
       align-items: center;
       flex-wrap: nowrap;
       overflow-x: auto;
+      width: 100%;
+      justify-content: space-between;
     }
 
     .star {
@@ -279,24 +281,23 @@
     }
 
     .star-labels {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       font-size: 12px;
       color: #475569;
       gap: 8px;
       margin-top: 2px;
+      width: 100%;
+    }
+
+    .star-labels span:first-child {
+      text-align: left;
     }
 
     .star-labels .mid {
       text-align: center;
-      flex: 1;
       color: #334155;
       font-weight: 700;
-    }
-
-    .star-labels span:first-child,
-    .star-labels span:last-child {
-      flex: 1;
     }
 
     .star-labels span:last-child {
@@ -1194,6 +1195,12 @@
         ></textarea>
       </div>
 
+      <div class="field">
+        <label for="commute_time">預計通勤時間（住家到辦公室）</label>
+        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
+        <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
+      </div>
+
       <div class="grid">
         <div class="field">
           <label for="strength_primary">候選人自述的優點 #1</label>
@@ -1334,28 +1341,6 @@
         <button type="button" class="modal-close" data-close-modal>&times;</button>
       </div>
       <div class="modal-body">
-        <div class="score-standard-grid">
-          <div class="score-standard-block">
-            <div class="score-standard-title">0–10 分標準（基礎／面試表現）</div>
-            <ul class="score-standard-list">
-              <li><strong>0–2：</strong>明顯不足，需大量指導</li>
-              <li><strong>3–4：</strong>勉強符合，仍有缺口</li>
-              <li><strong>5–6：</strong>基本到位，可正常執行</li>
-              <li><strong>7–8：</strong>穩定表現，高於一般</li>
-              <li><strong>9–10：</strong>亮眼突出，能帶來加值</li>
-            </ul>
-          </div>
-          <div class="score-standard-block">
-            <div class="score-standard-title">0–10 分標準（專業／管理）</div>
-            <ul class="score-standard-list">
-              <li><strong>0–2：</strong>缺乏經驗或方法論</li>
-              <li><strong>3–4：</strong>尚在建立基礎，需緊密帶領</li>
-              <li><strong>5–6：</strong>能獨立完成常規工作</li>
-              <li><strong>7–8：</strong>可優化流程並協作</li>
-              <li><strong>9–10：</strong>策略性思考，能帶人或創新</li>
-            </ul>
-          </div>
-        </div>
         <table class="weight-table">
           <thead>
             <tr>
