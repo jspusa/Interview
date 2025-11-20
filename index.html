@@ -270,14 +270,21 @@
       gap: 4px;
     }
 
-    .star-row,
-    .star-labels {
-      display: grid;
-      grid-template-columns: repeat(10, minmax(26px, 1fr));
-      column-gap: 7px;
-      width: clamp: 70%;
-      max-width: 360px;
-    }
+.star-row,
+.star-labels {
+  display: grid;
+  /* 讓 10 欄平均分配，自己縮放，不用 minmax 固定 26px */
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: 6px;
+
+  /* 寬度規則：最多 360px，平常撐滿容器寬度 */
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto; /* 置中 */
+
+  /* 避免 padding + width 造成超出 */
+  box-sizing: border-box;
+}
 
     .star-row {
       align-items: center;
