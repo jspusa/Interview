@@ -242,17 +242,64 @@
       flex-wrap: wrap;
     }
 
-    .score-select-row select {
-      width: 80px;
+    .score-select-row.star-target {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
     }
 
-    .score-tag {
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #4f46e5;
-      border: 1px solid #e0e7ff;
+    .star-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .star {
+      cursor: pointer;
+      font-size: 18px;
+      color: #cbd5e1;
+      transition: color 0.12s ease, transform 0.12s ease;
+      line-height: 1;
+    }
+
+    .star.active {
+      color: #fbbf24;
+    }
+
+    .star:hover {
+      transform: translateY(-1px);
+      color: #f59e0b;
+    }
+
+    .star-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #475569;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .star-labels .mid {
+      text-align: center;
+      flex: 1;
+      color: #334155;
+      font-weight: 700;
+    }
+
+    .star-labels span:first-child,
+    .star-labels span:last-child {
+      flex: 1;
+    }
+
+    .star-labels span:last-child {
+      text-align: right;
+    }
+
+    .field[data-disabled="true"] label,
+    .field[data-disabled="true"] .helper {
+      color: #94a3b8;
     }
 
     .comment-label {
@@ -665,77 +712,9 @@
   <div class="container">
     <h1>面試評分表</h1>
     <div class="subtitle">請依實際面試情況評分與填寫評語，完成後可匯出為 Word 檔。</div>
-
-    <div class="score-standard-card">
-      <div class="section-header" style="border-bottom:none; padding-bottom:0;">
-        <div class="section-title">評分標準與權重說明</div>
-        <div class="section-meta">統一 1–5 / 1–10 分定義，並提供不同職務類型的權重參考</div>
-      </div>
-      <div class="score-standard-grid">
-        <div class="score-standard-block">
-          <div class="score-standard-title">1–5 分標準（基本資訊、面試表現）</div>
-          <ul class="score-standard-list">
-            <li><strong>1 分：</strong>差，完全不符合需求</li>
-            <li><strong>2 分：</strong>普通偏弱，部分符合但有明顯缺失</li>
-            <li><strong>3 分：</strong>普通，達到最低標準</li>
-            <li><strong>4 分：</strong>佳，明顯優於一般人才</li>
-            <li><strong>5 分：</strong>很好 / 優秀，高度適配且無明顯瑕疵</li>
-          </ul>
-        </div>
-        <div class="score-standard-block">
-          <div class="score-standard-title">1–10 分標準（專業能力、軟技能、主管管理能力）</div>
-          <ul class="score-standard-list">
-            <li><strong>1–2：</strong>極弱，無法獨立勝任</li>
-            <li><strong>3–4：</strong>偏弱，可透過培訓補強</li>
-            <li><strong>5–6：</strong>普通，符合一般職務需求</li>
-            <li><strong>7–8：</strong>佳，能力明顯高於一般人才</li>
-            <li><strong>9–10：</strong>優秀 / 稀缺人才等級</li>
-          </ul>
-        </div>
-      </div>
-      <table class="weight-table">
-        <thead>
-          <tr>
-            <th>評分類別</th>
-            <th>一般職務</th>
-            <th>專業職務</th>
-            <th>主管職務</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>基本資訊</td>
-            <td>15%</td>
-            <td>15%</td>
-            <td>15%</td>
-          </tr>
-          <tr>
-            <td>專業能力</td>
-            <td>35%</td>
-            <td>40%</td>
-            <td>35%</td>
-          </tr>
-          <tr>
-            <td>管理能力（主管職）</td>
-            <td>—</td>
-            <td>—</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>軟技能</td>
-            <td>35%</td>
-            <td>30%</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>面試表現</td>
-            <td>15%</td>
-            <td>15%</td>
-            <td>10%</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="weight-note">💡 主管職會自動增加「管理能力 20%」權重，因此軟技能與面試表現權重會同步下降。</div>
+    <div class="section-meta" style="justify-content:flex-end; display:flex; gap:10px; align-items:center; margin-bottom:6px;">
+      <span class="helper">點擊即可查看評分類別與權重參考</span>
+      <button type="button" class="btn-ghost" id="openScoreStandard">查看評分類別表</button>
     </div>
 
     <!-- 基本資料 -->
@@ -745,35 +724,37 @@
         <div class="section-meta">請先確認面試對象與面試官資訊</div>
       </div>
       <div class="grid">
+        <div class="field" id="roleTypeField">
+          <label for="roleType">應徵職務類型</label>
+          <select id="roleType">
+            <option value="">— 請先選擇職務類型 —</option>
+            <option value="general">一般職務（通才、文書、助理等）</option>
+            <option value="professional">專業職務（專業科系、會計、品管等）</option>
+            <option value="manager">主管職（需帶領團隊之職務）</option>
+          </select>
+          <small class="helper role-hint">請先確認應徵類型，後續欄位會依此開啟並調整題組。</small>
+        </div>
         <div class="field">
           <label for="candidateName">應聘者姓名</label>
-          <input type="text" id="candidateName" />
+          <input type="text" id="candidateName" data-requires-role />
         </div>
         <div class="field">
           <label for="position">面試職位</label>
-          <input type="text" id="position" />
-        </div>
-        <div class="field">
-          <label for="roleType">應徵職務類型</label>
-          <select id="roleType">
-            <option value="general">一般職務</option>
-            <option value="professional">專業職務</option>
-            <option value="manager">主管職務</option>
-          </select>
-          <small class="helper role-hint">若選擇主管職，系統會顯示管理能力題組並調整權重。</small>
+          <input type="text" id="position" data-requires-role />
         </div>
         <div class="field">
           <label for="interviewDate">面試日期</label>
-          <input type="date" id="interviewDate" />
+          <input type="date" id="interviewDate" data-requires-role />
         </div>
         <div class="field">
           <label for="interviewer">面試官姓名</label>
-          <input type="text" id="interviewer" />
+          <input type="text" id="interviewer" data-requires-role />
         </div>
         <div class="field" style="grid-column: 1 / -1;">
           <label for="interviewParticipants">面試參與者</label>
           <textarea
             id="interviewParticipants"
+            data-requires-role
             placeholder="例：人資 John、部門主管 Max、管理夥伴 Chrissy"
           ></textarea>
         </div>
@@ -785,7 +766,6 @@
       <div class="section-header">
         <div class="section-title">一、基本信息</div>
         <div class="section-meta">
-          <span>每項滿分 5 分</span>
           <span class="weight-pill" data-weight-label="basic">權重：15%</span>
         </div>
       </div>
@@ -798,15 +778,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="basic_resume_score">評分</label>
-            <select id="basic_resume_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="basic_resume_score"></div>
+          <input type="hidden" id="basic_resume_score" class="score-input" data-field />
           <small class="helper">履歷是否清楚、完整呈現與職位相關資訊</small>
         </div>
         <div>
@@ -823,15 +796,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="basic_edu_score">評分</label>
-            <select id="basic_edu_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="basic_edu_score"></div>
+          <input type="hidden" id="basic_edu_score" class="score-input" data-field />
           <small class="helper">學歷是否符合職位需求，專業相關性</small>
         </div>
         <div>
@@ -848,15 +814,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="basic_exp_score">評分</label>
-            <select id="basic_exp_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="basic_exp_score"></div>
+          <input type="hidden" id="basic_exp_score" class="score-input" data-field />
           <small class="helper">過往經歷與職務內容之匹配程度</small>
         </div>
         <div>
@@ -873,16 +832,9 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="basic_stability_score">評分</label>
-            <select id="basic_stability_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
-          <small class="helper">1 分：離職頻繁、理由不清晰；3 分：理由合理但轉職偏多；5 分：轉職少、理由清楚且職涯方向一致</small>
+          <div class="score-select-row star-target" data-star-for="basic_stability_score"></div>
+          <input type="hidden" id="basic_stability_score" class="score-input" data-field />
+          <small class="helper">0 分：離職頻繁、理由不清晰；5 分：理由合理但轉職偏多；10 分：轉職少、理由清楚且職涯方向一致</small>
         </div>
         <div>
           <div class="comment-label">評語</div>
@@ -896,7 +848,6 @@
       <div class="section-header">
         <div class="section-title">二、專業能力</div>
         <div class="section-meta">
-          <span>每項滿分 10 分</span>
           <span class="weight-pill" data-weight-label="professional">權重：35%</span>
         </div>
       </div>
@@ -909,17 +860,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="pro_tech_score">評分</label>
-            <select id="pro_tech_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="pro_tech_score"></div>
+          <input type="hidden" id="pro_tech_score" class="score-input" data-field />
           <small class="helper">專業技能熟練度、工具與系統使用能力</small>
         </div>
         <div>
@@ -936,17 +878,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="pro_problem_score">評分</label>
-            <select id="pro_problem_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="pro_problem_score"></div>
+          <input type="hidden" id="pro_problem_score" class="score-input" data-field />
           <small class="helper">分析與解決問題、落實方案與驗證效果</small>
         </div>
         <div>
@@ -963,17 +896,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="pro_learning_score">評分</label>
-            <select id="pro_learning_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="pro_learning_score"></div>
+          <input type="hidden" id="pro_learning_score" class="score-input" data-field />
           <small class="helper">學習新知與自我精進的意願與方法</small>
         </div>
         <div>
@@ -1001,17 +925,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="mgmt_team_score">評分</label>
-            <select id="mgmt_team_score" class="score-input" data-field disabled>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="mgmt_team_score"></div>
+          <input type="hidden" id="mgmt_team_score" class="score-input" data-field disabled />
           <small class="helper">分工、目標設定、授權與追蹤、面對團隊問題是否願意承擔調整</small>
         </div>
         <div>
@@ -1028,15 +943,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="mgmt_process_score">評分</label>
-            <select id="mgmt_process_score" class="score-input" data-field disabled>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="mgmt_process_score"></div>
+          <input type="hidden" id="mgmt_process_score" class="score-input" data-field disabled />
           <small class="helper">是否能將工作流程化、主動優化制度並推動落地</small>
         </div>
         <div>
@@ -1053,15 +961,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="mgmt_talent_score">評分</label>
-            <select id="mgmt_talent_score" class="score-input" data-field disabled>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="mgmt_talent_score"></div>
+          <input type="hidden" id="mgmt_talent_score" class="score-input" data-field disabled />
           <small class="helper">培育人才的計畫與成效，以及跨部門協調與資源整合能力</small>
         </div>
         <div>
@@ -1089,17 +990,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="soft_comm_score">評分</label>
-            <select id="soft_comm_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="soft_comm_score"></div>
+          <input type="hidden" id="soft_comm_score" class="score-input" data-field />
           <small class="helper">資訊表達、傾聽與向上溝通的效率</small>
         </div>
         <div>
@@ -1116,17 +1008,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="soft_team_score">評分</label>
-            <select id="soft_team_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="soft_team_score"></div>
+          <input type="hidden" id="soft_team_score" class="score-input" data-field />
           <small class="helper">團隊分工協作、支援同仁與協調能力</small>
         </div>
         <div>
@@ -1143,17 +1026,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="soft_time_score">評分</label>
-            <select id="soft_time_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="soft_time_score"></div>
+          <input type="hidden" id="soft_time_score" class="score-input" data-field />
           <small class="helper">排程能力、優先順序判斷與交付準時度</small>
         </div>
         <div>
@@ -1170,17 +1044,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–10 分</span>
-            <label for="soft_stress_score">評分</label>
-            <select id="soft_stress_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option>10</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="soft_stress_score"></div>
+          <input type="hidden" id="soft_stress_score" class="score-input" data-field />
           <small class="helper">面對壓力時的穩定度與調適方法</small>
         </div>
         <div>
@@ -1195,7 +1060,6 @@
       <div class="section-header">
         <div class="section-title">四、面試表現</div>
         <div class="section-meta">
-          <span>每項滿分 5 分</span>
           <span class="weight-pill" data-weight-label="performance">權重：15%</span>
         </div>
       </div>
@@ -1208,15 +1072,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="perf_response_score">評分</label>
-            <select id="perf_response_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="perf_response_score"></div>
+          <input type="hidden" id="perf_response_score" class="score-input" data-field />
           <small class="helper">臨場反應、聚焦重點的能力</small>
         </div>
         <div>
@@ -1233,15 +1090,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="perf_attitude_score">評分</label>
-            <select id="perf_attitude_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="perf_attitude_score"></div>
+          <input type="hidden" id="perf_attitude_score" class="score-input" data-field />
           <small class="helper">責任感、穩定度與對工作的認真程度</small>
         </div>
         <div>
@@ -1258,15 +1108,8 @@
           </div>
         </div>
         <div class="score-wrapper">
-          <div class="score-select-row">
-            <span class="score-tag">1–5 分</span>
-            <label for="perf_manner_score">評分</label>
-            <select id="perf_manner_score" class="score-input" data-field>
-              <option value="">—</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option>
-            </select>
-          </div>
+          <div class="score-select-row star-target" data-star-for="perf_manner_score"></div>
+          <input type="hidden" id="perf_manner_score" class="score-input" data-field />
           <small class="helper">穿著、禮貌與專業形象</small>
         </div>
         <div>
@@ -1308,6 +1151,15 @@
       <div class="section-header">
         <div class="section-title">候選人自述與補充資訊</div>
         <div class="section-meta">放在最後，方便整理面談後的補充紀錄</div>
+      </div>
+
+      <div class="field">
+        <label for="company_motivation">為什麼選擇投遞我們公司？對我們公司與品牌有什麼瞭解嗎？</label>
+        <small class="helper">可紀錄候選人的研究程度、價值觀契合度與資訊來源。</small>
+        <textarea
+          id="company_motivation"
+          placeholder="例：被產品理念或品牌文化吸引、了解的渠道與深度等"
+        ></textarea>
       </div>
 
       <div class="field">
@@ -1455,6 +1307,85 @@
   </div>
 </div>
 
+  <div id="scoreStandardModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <div class="modal-eyebrow">評分類別表</div>
+          <div class="modal-title">評分標準與權重</div>
+        </div>
+        <button type="button" class="modal-close" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="score-standard-grid">
+          <div class="score-standard-block">
+            <div class="score-standard-title">0–10 分標準（基礎／面試表現）</div>
+            <ul class="score-standard-list">
+              <li><strong>0–2：</strong>明顯不足，需大量指導</li>
+              <li><strong>3–4：</strong>勉強符合，仍有缺口</li>
+              <li><strong>5–6：</strong>基本到位，可正常執行</li>
+              <li><strong>7–8：</strong>穩定表現，高於一般</li>
+              <li><strong>9–10：</strong>亮眼突出，能帶來加值</li>
+            </ul>
+          </div>
+          <div class="score-standard-block">
+            <div class="score-standard-title">0–10 分標準（專業／管理）</div>
+            <ul class="score-standard-list">
+              <li><strong>0–2：</strong>缺乏經驗或方法論</li>
+              <li><strong>3–4：</strong>尚在建立基礎，需緊密帶領</li>
+              <li><strong>5–6：</strong>能獨立完成常規工作</li>
+              <li><strong>7–8：</strong>可優化流程並協作</li>
+              <li><strong>9–10：</strong>策略性思考，能帶人或創新</li>
+            </ul>
+          </div>
+        </div>
+        <table class="weight-table">
+          <thead>
+            <tr>
+              <th>評分類別</th>
+              <th>一般職務</th>
+              <th>專業職務</th>
+              <th>主管職務</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>基本資訊</td>
+              <td>15%</td>
+              <td>15%</td>
+              <td>15%</td>
+            </tr>
+            <tr>
+              <td>專業能力</td>
+              <td>35%</td>
+              <td>40%</td>
+              <td>35%</td>
+            </tr>
+            <tr>
+              <td>管理能力（主管職）</td>
+              <td>—</td>
+              <td>—</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>軟技能</td>
+              <td>35%</td>
+              <td>30%</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>面試表現</td>
+              <td>15%</td>
+              <td>15%</td>
+              <td>10%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="weight-note">💡 主管職會自動增加「管理能力 20%」權重，因此軟技能與面試表現權重會同步下降。</div>
+      </div>
+    </div>
+  </div>
+
   <div id="guidelineModal" class="modal-backdrop hidden">
     <div class="modal-dialog">
       <div class="modal-header">
@@ -1482,6 +1413,7 @@
     const scoreInputs = document.querySelectorAll(".score-input");
     const totalScoreEl = document.getElementById("totalScore");
     const roleTypeSelect = document.getElementById("roleType");
+    const roleLockedFields = document.querySelectorAll("[data-requires-role]");
     const managementSection = document.getElementById("managementSection");
     const managementScoreInputs = managementSection
       ? managementSection.querySelectorAll(".score-input")
@@ -1511,7 +1443,9 @@
     const guidelineModalTitle = document.getElementById("guidelineModalTitle");
     const guidelineModalQuestions = document.getElementById("guidelineModalQuestions");
     const guidelineModalNotes = document.getElementById("guidelineModalNotes");
-    const guidelineModalCloseButtons = document.querySelectorAll("[data-close-modal]");
+    const scoreStandardModal = document.getElementById("scoreStandardModal");
+    const openScoreStandardBtn = document.getElementById("openScoreStandard");
+    const modalCloseButtons = document.querySelectorAll("[data-close-modal]");
 
     const guidelineData = {
       basic_resume: {
@@ -1718,6 +1652,94 @@
       }
     };
 
+    const starConfigs = {
+      basic_resume_score: {
+        left: "資訊零散",
+        middle: "完整清楚",
+        right: "亮點突出"
+      },
+      basic_edu_score: {
+        left: "專業不符",
+        middle: "相關踏實",
+        right: "高度匹配"
+      },
+      basic_exp_score: {
+        left: "經驗落差",
+        middle: "符合需求",
+        right: "高度相符"
+      },
+      basic_stability_score: {
+        left: "頻繁跳槽",
+        middle: "理由合理",
+        right: "穩定一致"
+      },
+      pro_tech_score: {
+        left: "技能需補強",
+        middle: "能獨立執行",
+        right: "專家領域"
+      },
+      pro_problem_score: {
+        left: "缺少解法",
+        middle: "拆解並落地",
+        right: "主動優化"
+      },
+      pro_learning_score: {
+        left: "學習被動",
+        middle: "快速上手",
+        right: "自我迭代"
+      },
+      mgmt_team_score: {
+        left: "缺乏帶人",
+        middle: "能管日常",
+        right: "激勵團隊"
+      },
+      mgmt_process_score: {
+        left: "流程鬆散",
+        middle: "優化落地",
+        right: "制度設計"
+      },
+      mgmt_talent_score: {
+        left: "少育成經驗",
+        middle: "教練回饋",
+        right: "育成高手"
+      },
+      soft_comm_score: {
+        left: "表達失焦",
+        middle: "清楚聽說",
+        right: "影響力強"
+      },
+      soft_team_score: {
+        left: "合作抗拒",
+        middle: "配合協作",
+        right: "主動協調"
+      },
+      soft_time_score: {
+        left: "常延誤",
+        middle: "進度守時",
+        right: "善排優先"
+      },
+      soft_stress_score: {
+        left: "抗壓偏弱",
+        middle: "穩定應對",
+        right: "壓力加分"
+      },
+      perf_response_score: {
+        left: "反應遲緩",
+        middle: "聚焦應對",
+        right: "敏捷解法"
+      },
+      perf_attitude_score: {
+        left: "態度消極",
+        middle: "務實正向",
+        right: "主動承擔"
+      },
+      perf_manner_score: {
+        left: "禮儀不足",
+        middle: "基本得體",
+        right: "專業有型"
+      }
+    };
+
     const roleWeights = {
       general: { basic: 15, professional: 35, management: 0, soft: 35, performance: 15 },
       professional: { basic: 15, professional: 40, management: 0, soft: 30, performance: 15 },
@@ -1726,10 +1748,10 @@
 
     const scoreSections = {
       basic: [
-        { id: "basic_resume_score", max: 5 },
-        { id: "basic_edu_score", max: 5 },
-        { id: "basic_exp_score", max: 5 },
-        { id: "basic_stability_score", max: 5 }
+        { id: "basic_resume_score", max: 10 },
+        { id: "basic_edu_score", max: 10 },
+        { id: "basic_exp_score", max: 10 },
+        { id: "basic_stability_score", max: 10 }
       ],
       professional: [
         { id: "pro_tech_score", max: 10 },
@@ -1738,8 +1760,8 @@
       ],
       management: [
         { id: "mgmt_team_score", max: 10 },
-        { id: "mgmt_process_score", max: 5 },
-        { id: "mgmt_talent_score", max: 5 }
+        { id: "mgmt_process_score", max: 10 },
+        { id: "mgmt_talent_score", max: 10 }
       ],
       soft: [
         { id: "soft_comm_score", max: 10 },
@@ -1748,11 +1770,68 @@
         { id: "soft_stress_score", max: 10 }
       ],
       performance: [
-        { id: "perf_response_score", max: 5 },
-        { id: "perf_attitude_score", max: 5 },
-        { id: "perf_manner_score", max: 5 }
+        { id: "perf_response_score", max: 10 },
+        { id: "perf_attitude_score", max: 10 },
+        { id: "perf_manner_score", max: 10 }
       ]
     };
+
+    const starUpdaters = {};
+
+    function createStarRating(id, labels) {
+      const container = document.querySelector(`[data-star-for='${id}']`);
+      const input = document.getElementById(id);
+      if (!container || !input) return;
+
+      const starRow = document.createElement("div");
+      starRow.className = "star-row";
+      for (let i = 0; i <= 10; i++) {
+        const star = document.createElement("span");
+        star.className = "star";
+        star.dataset.value = i;
+        star.textContent = "★";
+        starRow.appendChild(star);
+      }
+
+      const labelRow = document.createElement("div");
+      labelRow.className = "star-labels";
+      labelRow.innerHTML = `
+        <span>${labels.left}</span>
+        <span class="mid">${labels.middle}</span>
+        <span>${labels.right}</span>
+      `;
+
+      container.appendChild(starRow);
+      container.appendChild(labelRow);
+
+      const updateStars = (value) => {
+        starRow.querySelectorAll(".star").forEach((star) => {
+          const starValue = Number(star.dataset.value);
+          star.classList.toggle("active", !Number.isNaN(value) && starValue <= value);
+        });
+      };
+
+      starRow.addEventListener("click", (event) => {
+        const target = event.target.closest(".star");
+        if (!target || input.disabled) return;
+        const value = Number(target.dataset.value);
+        input.value = value;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        updateStars(value);
+      });
+
+      input.addEventListener("change", () => {
+        const value = parseInt(input.value, 10);
+        updateStars(Number.isNaN(value) ? -1 : value);
+      });
+
+      updateStars(parseInt(input.value, 10));
+      starUpdaters[id] = updateStars;
+    }
+
+    Object.entries(starConfigs).forEach(([id, labels]) =>
+      createStarRating(id, labels)
+    );
 
     const discDescriptions = {
       D: {
@@ -1785,6 +1864,26 @@
       }
     };
 
+    function anyModalOpen() {
+      return Array.from(document.querySelectorAll(".modal-backdrop")).some(
+        (modal) => !modal.classList.contains("hidden")
+      );
+    }
+
+    function openModal(modal) {
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeModal(modal) {
+      if (!modal) return;
+      modal.classList.add("hidden");
+      if (!anyModalOpen()) {
+        document.body.classList.remove("modal-open");
+      }
+    }
+
     function renderGuidelineList(target, items) {
       if (!target) return;
       if (!items || !items.length) {
@@ -1801,14 +1900,11 @@
       guidelineModalTitle.textContent = label || "面試提問建議";
       renderGuidelineList(guidelineModalQuestions, info.questions);
       renderGuidelineList(guidelineModalNotes, info.notes);
-      guidelineModal.classList.remove("hidden");
-      document.body.classList.add("modal-open");
+      openModal(guidelineModal);
     }
 
     function closeGuidelineModal() {
-      if (!guidelineModal) return;
-      guidelineModal.classList.add("hidden");
-      document.body.classList.remove("modal-open");
+      closeModal(guidelineModal);
     }
 
     guidelineToggles.forEach((btn) => {
@@ -1817,15 +1913,24 @@
       });
     });
 
-    guidelineModalCloseButtons.forEach((btn) =>
-      btn.addEventListener("click", closeGuidelineModal)
+    modalCloseButtons.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const modal = btn.closest(".modal-backdrop");
+        closeModal(modal);
+      })
     );
 
-    if (guidelineModal) {
-      guidelineModal.addEventListener("click", (event) => {
-        if (event.target === guidelineModal) {
-          closeGuidelineModal();
+    document.querySelectorAll(".modal-backdrop").forEach((modal) => {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          closeModal(modal);
         }
+      });
+    });
+
+    if (openScoreStandardBtn && scoreStandardModal) {
+      openScoreStandardBtn.addEventListener("click", () => {
+        openModal(scoreStandardModal);
       });
     }
 
@@ -1860,14 +1965,35 @@
         const weight = weights[sectionKey] || 0;
         total += ratio * weight;
       });
+      const hasScore = Array.from(scoreInputs).some(
+        (input) => !Number.isNaN(parseInt(input.value, 10))
+      );
       const rounded = Math.round(total * 10) / 10;
-      if (rounded > 0) {
+      if (hasScore) {
         totalScoreEl.textContent = Number.isInteger(rounded)
           ? String(rounded)
           : rounded.toFixed(1);
       } else {
         totalScoreEl.textContent = "—";
       }
+    }
+
+    function updateRoleLocks() {
+      const locked = !roleTypeSelect || !roleTypeSelect.value;
+      roleLockedFields.forEach((field) => {
+        const wrapper = field.closest(".field");
+        field.disabled = locked;
+        if (locked) {
+          if (field.type === "radio" || field.type === "checkbox") {
+            field.checked = false;
+          } else {
+            field.value = "";
+          }
+        }
+        if (wrapper) {
+          wrapper.dataset.disabled = locked ? "true" : "false";
+        }
+      });
     }
 
     function updateWeightLabels() {
@@ -1889,6 +2015,7 @@
         input.disabled = !isManager;
         if (!isManager) {
           input.value = "";
+          input.dispatchEvent(new Event("change", { bubbles: true }));
         }
       });
       managementCommentInputs.forEach((textarea) => {
@@ -1900,6 +2027,7 @@
     }
 
     function updateRoleDisplay() {
+      updateRoleLocks();
       toggleManagementSection();
       updateWeightLabels();
       updateTotalScore();
@@ -2049,8 +2177,11 @@
           el.value = "";
         }
       });
+      scoreInputs.forEach((input) =>
+        input.dispatchEvent(new Event("change", { bubbles: true }))
+      );
       if (roleTypeSelect) {
-        roleTypeSelect.value = "general";
+        roleTypeSelect.value = "";
       }
       updateRoleDisplay();
       updateAiToolsVisibility();
@@ -2113,6 +2244,7 @@
         interviewer: document.getElementById("interviewer").value || "",
         interviewParticipants:
           document.getElementById("interviewParticipants").value || "",
+        company_motivation: document.getElementById("company_motivation").value,
         achievement_note: document.getElementById("achievement_note").value,
         challenge_note: document.getElementById("challenge_note").value,
         strength_primary: document.getElementById("strength_primary").value,
@@ -2391,6 +2523,7 @@
   <p>${formatMultiline(data.overall_comment)}</p>
 
   <div class="section-title">候選人自述與補充資訊</div>
+  <p><strong>投遞動機與品牌理解：</strong><br>${formatMultiline(data.company_motivation)}</p>
   <p><strong>最有成就感的事情與經驗：</strong><br>${formatMultiline(data.achievement_note)}</p>
   <p><strong>遇到的最大挫折與解法：</strong><br>${formatMultiline(data.challenge_note)}</p>
   <p><strong>自述的優點 #1：</strong><br>${formatMultiline(data.strength_primary)}</p>
