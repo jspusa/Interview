@@ -778,9 +778,7 @@
 <body>
   <div class="container">
     <h1>面試評分表</h1>
-    <div class="subtitle">請依實際面試情況評分與填寫評語，完成後可匯出為 Word 檔。</div>
     <div class="section-meta" style="justify-content:flex-end; display:flex; gap:10px; align-items:center; margin-bottom:6px;">
-      <span class="helper">點擊即可查看評分類別與權重參考</span>
       <button type="button" class="btn-ghost" id="openScoreStandard">查看評分類別表</button>
     </div>
 
@@ -788,7 +786,6 @@
     <div class="section-card">
       <div class="section-header">
         <div class="section-title">基本資料</div>
-        <div class="section-meta">請先確認面試對象與面試官資訊</div>
       </div>
       <div class="grid">
         <div class="field" id="roleTypeField">
@@ -799,7 +796,6 @@
             <option value="professional">專業職務（專業科系、會計、品管等）</option>
             <option value="manager">主管職（需帶領團隊之職務）</option>
           </select>
-          <small class="helper role-hint">請先確認應徵類型，後續欄位會依此開啟並調整題組。</small>
         </div>
         <div class="field">
           <label for="candidateName">應聘者姓名</label>
@@ -847,7 +843,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="basic_resume_score"></div>
           <input type="hidden" id="basic_resume_score" class="score-input" data-field />
-          <small class="helper">履歷是否清楚、完整呈現與職位相關資訊</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -865,7 +860,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="basic_edu_score"></div>
           <input type="hidden" id="basic_edu_score" class="score-input" data-field />
-          <small class="helper">學歷是否符合職位需求，專業相關性</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -883,7 +877,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="basic_exp_score"></div>
           <input type="hidden" id="basic_exp_score" class="score-input" data-field />
-          <small class="helper">過往經歷與職務內容之匹配程度</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -901,7 +894,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="basic_stability_score"></div>
           <input type="hidden" id="basic_stability_score" class="score-input" data-field />
-          <small class="helper">0 分：離職頻繁、理由不清晰；5 分：原因合理但轉職偏多；10 分：轉職少、理由清楚且職涯方向一致</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -929,7 +921,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="pro_tech_score"></div>
           <input type="hidden" id="pro_tech_score" class="score-input" data-field />
-          <small class="helper">專業技能熟練度、工具與系統使用能力</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -947,7 +938,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="pro_problem_score"></div>
           <input type="hidden" id="pro_problem_score" class="score-input" data-field />
-          <small class="helper">分析與解決問題、落實方案與驗證效果</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -965,7 +955,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="pro_learning_score"></div>
           <input type="hidden" id="pro_learning_score" class="score-input" data-field />
-          <small class="helper">學習新知與自我精進的意願與方法</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1059,7 +1048,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="soft_comm_score"></div>
           <input type="hidden" id="soft_comm_score" class="score-input" data-field />
-          <small class="helper">資訊表達、傾聽與向上溝通的效率</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1077,7 +1065,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="soft_team_score"></div>
           <input type="hidden" id="soft_team_score" class="score-input" data-field />
-          <small class="helper">團隊分工協作、支援同仁與協調能力</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1095,7 +1082,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="soft_time_score"></div>
           <input type="hidden" id="soft_time_score" class="score-input" data-field />
-          <small class="helper">排程能力、優先順序判斷與交付準時度</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1113,7 +1099,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="soft_stress_score"></div>
           <input type="hidden" id="soft_stress_score" class="score-input" data-field />
-          <small class="helper">面對壓力時的穩定度與調適方法</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1141,7 +1126,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="perf_response_score"></div>
           <input type="hidden" id="perf_response_score" class="score-input" data-field />
-          <small class="helper">臨場反應、聚焦重點的能力</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1159,7 +1143,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="perf_attitude_score"></div>
           <input type="hidden" id="perf_attitude_score" class="score-input" data-field />
-          <small class="helper">責任感、穩定度與對工作的認真程度</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1177,7 +1160,6 @@
         <div class="score-wrapper">
           <div class="score-select-row star-target" data-star-for="perf_manner_score"></div>
           <input type="hidden" id="perf_manner_score" class="score-input" data-field />
-          <small class="helper">穿著、禮貌與專業形象</small>
         </div>
         <div class="comment-block">
           <div class="comment-label">評語</div>
@@ -1222,7 +1204,6 @@
 
       <div class="field">
         <label for="company_motivation">為什麼選擇投遞我們公司？對我們公司與品牌有什麼瞭解嗎？</label>
-        <small class="helper">可紀錄候選人的研究程度、價值觀契合度與資訊來源。</small>
         <textarea
           id="company_motivation"
           placeholder="例：被產品理念或品牌文化吸引、了解的渠道與深度等"
@@ -1276,7 +1257,6 @@
           <div class="score-select-row" style="gap:10px;">
             <label class="chip"><input type="radio" name="ai_usage" value="yes" /> 有</label>
             <label class="chip"><input type="radio" name="ai_usage" value="no" /> 沒有</label>
-            <span class="muted">若勾選「有」，可勾選常用工具</span>
           </div>
           <div id="aiToolsWrapper" class="ai-tools-grid hidden">
             <label class="chip"><input type="checkbox" class="ai-tool" value="ChatGPT" /> ChatGPT</label>
@@ -1293,8 +1273,7 @@
         </div>
 
         <div class="field">
-          <label>ERP 使用經驗？</label>
-            <div class="muted">使用過的 ERP 系統（可複選）</div>
+          <label>ERP 使用經驗（可複選）？</label>
             <div class="inline-chips">
               <label class="chip"><input type="checkbox" class="erp-option" value="鼎新 ERP" /> 鼎新 ERP</label>
               <label class="chip"><input type="checkbox" class="erp-option" value="無" /> 無</label>
@@ -1332,7 +1311,6 @@
             <label class="tag-pill"><input type="radio" name="pet_status" value="no" /> 沒有</label>
             <label class="tag-pill"><input type="radio" name="pet_status" value="past" /> 以前養過</label>
           </div>
-          <small class="helper">選「有」或「以前養過」時，請勾選類型並填寫照護資訊。</small>
         </div>
         <div class="field hidden" id="petTypesWrapper">
           <label>寵物類型（可複選）</label>
@@ -1356,7 +1334,6 @@
       </div>
       <div class="field">
         <label for="commute_time">預計通勤時間（住家到辦公室）</label>
-        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
         <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
       </div>
 
