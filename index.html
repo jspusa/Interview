@@ -59,6 +59,16 @@
       gap: 6px;
     }
 
+    .notes-section .field,
+    .supplement-section .field {
+      gap: 8px;
+    }
+
+    .notes-section .field + .field,
+    .supplement-section .field + .field {
+      margin-top: 6px;
+    }
+
     label {
       font-size: 13px;
       font-weight: 700;
@@ -92,6 +102,13 @@
     textarea {
       min-height: 120px;
       resize: vertical;
+    }
+
+    .notes-section textarea,
+    .supplement-section textarea,
+    .notes-section input[type="text"],
+    .supplement-section input[type="text"] {
+      line-height: 1.6;
     }
 
     .section-card {
@@ -253,22 +270,46 @@
       gap: 4px;
     }
 
+    .star-row,
+    .star-labels {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(26px, 1fr));
+      column-gap: 7px;
+      width: 100%;
+      max-width: 360px;
+    }
+
     .star-row {
-      display: flex;
-      gap: 6px;
       align-items: center;
-      flex-wrap: nowrap;
-      overflow-x: auto;
       justify-content: flex-start;
-      width: fit-content;
+      overflow-x: auto;
+      padding-bottom: 2px;
     }
 
     .star {
       cursor: pointer;
-      font-size: 18px;
+      font-size: 24px;
       color: #cbd5e1;
       transition: color 0.12s ease, transform 0.12s ease;
       line-height: 1;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+    }
+
+    .star-icon {
+      pointer-events: none;
+    }
+
+    .star-number {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 700;
+      color: #1f2937;
+      pointer-events: none;
     }
 
     .star.active {
@@ -281,26 +322,27 @@
     }
 
     .star-labels {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       font-size: 12px;
       color: #475569;
       gap: 8px;
       margin-top: 2px;
-      width: 100%;
+      align-items: start;
     }
 
-    .star-labels span:first-child {
+    .star-labels span:nth-child(1) {
+      grid-column: 1 / 4;
       text-align: left;
     }
 
     .star-labels .mid {
+      grid-column: 4 / 8;
       text-align: center;
       color: #334155;
       font-weight: 700;
     }
 
-    .star-labels span:last-child {
+    .star-labels span:nth-child(3) {
+      grid-column: 8 / 11;
       text-align: right;
     }
 
@@ -319,6 +361,13 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+
+    .notes-section label,
+    .supplement-section label,
+    .notes-section .helper,
+    .supplement-section .helper {
+      line-height: 1.6;
     }
 
     .label-top {
@@ -1165,7 +1214,7 @@
     </div>
 
     <!-- 補充資訊與提問 -->
-    <div class="section-card">
+    <div class="section-card notes-section supplement-section">
       <div class="section-header">
         <div class="section-title">候選人自述與補充資訊</div>
         <div class="section-meta">放在最後，方便整理面談後的補充紀錄</div>
@@ -1275,11 +1324,6 @@
         <div class="section-title">補充資料</div>
         <div class="section-meta">通勤資訊與寵物照護備註</div>
       </div>
-      <div class="field">
-        <label for="commute_time">預計通勤時間（住家到辦公室）</label>
-        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
-        <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
-      </div>
       <div class="grid">
         <div class="field">
           <label>是否有養寵物？</label>
@@ -1309,6 +1353,11 @@
       <div class="field">
         <label for="pet_note">寵物相關備註</label>
         <textarea id="pet_note" placeholder="填寫飼養經驗、照護時間安排、食物挑選考量等"></textarea>
+      </div>
+      <div class="field">
+        <label for="commute_time">預計通勤時間（住家到辦公室）</label>
+        <small class="helper">可記錄通勤距離、交通工具與所需時間，方便評估工作配合度。</small>
+        <input type="text" id="commute_time" placeholder="例：捷運 40 分鐘、機車 25 分鐘" />
       </div>
 
       <div class="section-header" style="padding-top:8px;">
@@ -1790,7 +1839,7 @@
         const star = document.createElement("span");
         star.className = "star";
         star.dataset.value = i;
-        star.textContent = "★";
+        star.innerHTML = `<span class="star-icon">★</span><span class="star-number">${i}</span>`;
         starRow.appendChild(star);
       }
 
@@ -2539,11 +2588,11 @@
   <p><strong>DISC 類型：</strong> ${safeText(data.disc_type || "未填寫")}</p>
 
   <div class="section-title">補充資料（通勤與寵物）</div>
-  <p><strong>預計通勤時間：</strong> ${safeText(data.commute_time || "未填寫")}</p>
   <p><strong>是否有養寵物：</strong> ${safeText(petStatusText)}</p>
   <p><strong>寵物類型：</strong> ${safeText(petTypesText)}</p>
   <p><strong>是否為飼料挑選者：</strong> ${safeText(petFeederText)}</p>
   <p><strong>寵物備註：</strong><br>${formatMultiline(data.pet_note)}</p>
+  <p><strong>預計通勤時間：</strong> ${safeText(data.commute_time || "未填寫")}</p>
 
   <div class="section-title">面試者提問</div>
   ${questionListHtml}
